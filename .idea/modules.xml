@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kdg.iml" filepath="$PROJECT_DIR$/.idea/modules/kdg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/landside/kdg.landside.main.iml" filepath="$PROJECT_DIR$/.idea/modules/landside/kdg.landside.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/boundedContextB/kdg.waterside.iml" filepath="$PROJECT_DIR$/.idea/modules/boundedContextB/kdg.waterside.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/application/template.application.iml" filepath="$PROJECT_DIR$/.idea/modules/application/template.application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/application/template.application.main.iml" filepath="$PROJECT_DIR$/.idea/modules/application/template.application.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/application/template.application.test.iml" filepath="$PROJECT_DIR$/.idea/modules/application/template.application.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/boundedContextA/template.boundedContextA.iml" filepath="$PROJECT_DIR$/.idea/modules/boundedContextA/template.boundedContextA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/boundedContextB/template.boundedContextB.main.iml" filepath="$PROJECT_DIR$/.idea/modules/boundedContextB/template.boundedContextB.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/boundedContextB/template.boundedContextB.test.iml" filepath="$PROJECT_DIR$/.idea/modules/boundedContextB/template.boundedContextB.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/template.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/template.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/template.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/template.buildSrc.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/template.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/template.buildSrc.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/template.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/template.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/template.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/template.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/template.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common/template.common.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/warehouse/warehouse.iml" filepath="$PROJECT_DIR$/warehouse/warehouse.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,12 @@
+Compose to create services, and they can talk to each other by defining networks
+Chose mysql
+Volume mapping - where all the data goes, mapped to folder
+
+Rabbit mq - ui port and amqp (used to push messages)
+Switch to real messages on mq
+Volume mappings
+idp - identity provider
+- needs a database, database of idp
+- idp itself which is keycloak
+- from redhat
+- make sure its ports are free

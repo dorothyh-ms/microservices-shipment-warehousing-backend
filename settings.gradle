@@ -1,0 +1,8 @@
+rootProject.name = 'kdg'
+
+include 'application'
+include 'common'
+include 'landside'
+include 'waterside'
+include 'warehouse'
+

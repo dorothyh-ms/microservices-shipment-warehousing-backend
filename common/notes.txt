@@ -1,0 +1,3 @@
+This is the shared kernel
+Will known be known to all other projects
+Gradle will find common projects, build a jar, and include it

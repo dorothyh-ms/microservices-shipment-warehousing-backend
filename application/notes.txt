@@ -1,0 +1,9 @@
+Used to run project as a monolith
+Scans all beans under the package
+Looks in bounded context a and b
+Problem: application in the bounded context, and if you scan the spring boot application, it will start rescanning
+Spring boot application is a bean itself, and says start scanning for other beans
+It will start an endless loop of scanning
+Just have one config file over all, will be used when you're running the application as a whole
+Runs on one port
+Use this

@@ -1,0 +1,2 @@
+Share the same technologies between all bounded contexts
+buildSrc is a reserved folder name, make plugins in the groovy folder
