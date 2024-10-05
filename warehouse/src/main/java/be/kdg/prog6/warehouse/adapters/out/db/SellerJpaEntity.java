@@ -1,16 +1,26 @@
-package main.java.be.kdg.prog6.warehouse.domain;
+package be.kdg.prog6.warehouse.adapters.out.db;
+
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.UUID;
 
-public class Seller {
+@Entity
+@Table(catalog="warehouse", name="sellers")
+public class SellerJpaEntity {
+    @Id
     private UUID id;
 
+    @Column
     private String name;
 
-    public Seller() {
+    public SellerJpaEntity() {
     }
 
-    public Seller(UUID id, String name) {
+    public SellerJpaEntity(UUID id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -64,4 +64,15 @@ public class WeighBridgeTransaction {
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
     }
+
+    @Override
+    public String toString() {
+        return "WeighBridgeTransaction{" +
+                "id=" + id +
+                ", truckLicensePlate='" + truckLicensePlate + '\'' +
+                ", weightIn=" + weightIn +
+                ", weightOut=" + weightOut +
+                ", appointment=" + appointment +
+                '}';
+    }
 }

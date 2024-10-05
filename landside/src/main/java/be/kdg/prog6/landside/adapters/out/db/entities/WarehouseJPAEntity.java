@@ -24,6 +24,12 @@ public class WarehouseJPAEntity {
     @Column(name="current_tons")
     double currentTons;
 
+    public WarehouseJPAEntity() {
+    }
+
+    public WarehouseJPAEntity(UUID id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

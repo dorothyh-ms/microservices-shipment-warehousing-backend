@@ -17,9 +17,9 @@ import java.util.Optional;
 public class DeliveryAppointmentDbAdapter implements DeliveryAppointmentBookedPort, DeliveryAppointmentLoadPort, TruckArrivedForDeliveryAppointmentPort {
 
     private final SpringDataAppointmentRepository appointmentRepository;
-    private final SpringDataWarehouseRepository warehouseRepository;
+    private final SpringDataWarehouseProjectionRepository warehouseRepository;
 
-    public DeliveryAppointmentDbAdapter(SpringDataAppointmentRepository appointmentRepository, SpringDataWarehouseRepository warehouseRepository) {
+    public DeliveryAppointmentDbAdapter(SpringDataAppointmentRepository appointmentRepository, SpringDataWarehouseProjectionRepository warehouseRepository) {
         this.appointmentRepository = appointmentRepository;
         this.warehouseRepository = warehouseRepository;
     }

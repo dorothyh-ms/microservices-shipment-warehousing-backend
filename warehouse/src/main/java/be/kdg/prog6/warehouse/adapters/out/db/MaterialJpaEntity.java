@@ -1,15 +1,28 @@
-package main.java.be.kdg.prog6.warehouse.domain;
+package be.kdg.prog6.warehouse.adapters.out.db;
+
+
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
-public class Material {
+@Entity
+@Table(catalog = "warehouse", name="material")
+public class MaterialJpaEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+
+    @Column
     private String name;
 
-    public Material(UUID id, String name) {
+    public MaterialJpaEntity(UUID id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public MaterialJpaEntity() {
     }
 
     public UUID getId() {

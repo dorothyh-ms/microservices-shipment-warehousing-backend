@@ -22,11 +22,8 @@
             <option value="$PROJECT_DIR$/application" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/common" />
-            <option value="$PROJECT_DIR$/kdg.warehouse" />
             <option value="$PROJECT_DIR$/landside" />
             <option value="$PROJECT_DIR$/warehouse" />
-            <option value="$PROJECT_DIR$/warehouse/kdg.warehouse" />
-            <option value="$PROJECT_DIR$/warehouse/warehouse" />
             <option value="$PROJECT_DIR$/waterside" />
           </set>
         </option>
