@@ -31,6 +31,8 @@ public class WarehouseJPAEntity {
         this.id = id;
     }
 
+
+
     @Override
     public String toString() {
         return "WarehouseJPAEntity{" +

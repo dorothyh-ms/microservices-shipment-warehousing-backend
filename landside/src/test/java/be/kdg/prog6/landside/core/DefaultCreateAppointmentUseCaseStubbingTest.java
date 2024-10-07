@@ -1,17 +1,15 @@
 package be.kdg.prog6.landside.core;
 
-import be.kdg.prog6.landside.domain.Warehouse;
+import be.kdg.prog6.landside.exceptions.NoWarehouseAvailableException;
 import be.kdg.prog6.landside.ports.in.commands.CreateDeliveryAppointmentCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import static be.kdg.prog6.landside.core.TestClasses.*;
+import static be.kdg.prog6.landside.core.TestValues.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DefaultCreateAppointmentUseCaseStubbingTest {
 
@@ -44,7 +42,13 @@ public class DefaultCreateAppointmentUseCaseStubbingTest {
     }
 
     @Test
-    void createAppointmentShouldFailWithNonExistentSeller() {
-    }
+    void createAppointmentShouldFailWithNonExistentSeller(){
+
+        //Assert
+        assertThrows(NoWarehouseAvailableException.class, () -> {
+            // Act
+            sut.createAppointment(new CreateDeliveryAppointmentCommand(UUID.randomUUID(), MATERIAL_ID, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
+
+        });
     }
 }

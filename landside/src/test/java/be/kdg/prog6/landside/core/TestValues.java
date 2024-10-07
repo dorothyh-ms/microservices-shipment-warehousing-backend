@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class TestClasses {
+public class TestValues {
 
     public static final UUID SELLER_ID = UUID.randomUUID();
     public static final UUID MATERIAL_ID = UUID.randomUUID();
@@ -26,7 +26,7 @@ public class TestClasses {
 
 
 
-    private TestClasses(){};
+    private TestValues(){};
 
 
 }

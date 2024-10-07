@@ -1,7 +1,7 @@
 INSERT INTO warehouse.sellers (id, name) VALUES (UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 'test_seller');
 INSERT INTO warehouse.material (id, name) VALUES (UUID_TO_BIN('66f05626-82a0-800b-841d-73b9326ac71e'), 'Slag');
 
-INSERT INTO warehouse.warehouses(id, seller_id, base_amount_tons, material_id) VALUES (UUID_TO_BIN('57f7f2a0-6928-4fe8-9bb8-afc36915929f'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 0.0, UUID_TO_BIN('69f2fdb0-71d8-800b-afae-98e6824af9f5'));
+INSERT INTO warehouse.warehouses(uuid, seller_id, base_amount_tons, material_id) VALUES (UUID_TO_BIN('57f7f2a0-6928-4fe8-9bb8-afc36915929f'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 0.0, UUID_TO_BIN('66f05626-82a0-800b-841d-73b9326ac71e'));
 
 
 

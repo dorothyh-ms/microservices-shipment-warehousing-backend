@@ -1,7 +1,6 @@
 package be.kdg.prog6.landside.core;
 
 import be.kdg.prog6.landside.domain.Appointment;
-import be.kdg.prog6.landside.domain.Warehouse;
 import be.kdg.prog6.landside.exceptions.NoWarehouseAvailableException;
 import be.kdg.prog6.landside.ports.in.commands.CreateDeliveryAppointmentCommand;
 import be.kdg.prog6.landside.ports.out.AppointmentBookedPort;
@@ -10,12 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import static be.kdg.prog6.landside.core.TestClasses.*;
+import static be.kdg.prog6.landside.core.TestValues.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -36,7 +32,7 @@ class DefaultCreateAppointmentUseCaseMockTest {
         sut = new DefaultCreateDeliveryAppointmentUseCase(appointmentBookedPort, warehouseLoadPort);
     }
     @Test
-    void createAppointment() {
+    void shouldCreateAppointment() {
         // Act
         sut.createAppointment(new CreateDeliveryAppointmentCommand(SELLER_ID, MATERIAL_ID, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
         final ArgumentCaptor<Appointment> appointmentCaptor = ArgumentCaptor.forClass(Appointment.class);

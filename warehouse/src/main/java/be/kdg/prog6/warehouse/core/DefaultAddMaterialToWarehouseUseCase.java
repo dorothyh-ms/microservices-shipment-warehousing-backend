@@ -3,6 +3,7 @@ package be.kdg.prog6.warehouse.core;
 import be.kdg.prog6.warehouse.domain.Warehouse;
 import be.kdg.prog6.warehouse.domain.WarehouseActivity;
 import be.kdg.prog6.warehouse.domain.WarehouseActivityWindow;
+import be.kdg.prog6.warehouse.exceptions.IncorrectMaterialException;
 import be.kdg.prog6.warehouse.exceptions.SellerNotFoundException;
 import be.kdg.prog6.warehouse.ports.in.AddMaterialToWarehouseCommand;
 import be.kdg.prog6.warehouse.ports.in.AddMaterialToWarehouseUseCase;
@@ -42,9 +43,9 @@ public class DefaultAddMaterialToWarehouseUseCase implements AddMaterialToWareho
         final Optional<Warehouse> warehouseOptional = loadWarehousePort.loadWarehouseById(addMaterialToWarehouseCommand.warehouseId());
         final Optional<Material> materialOptional  = loadMaterialPort.loadMaterialById(addMaterialToWarehouseCommand.materialID());
 
-        //TODO: handle material not found case
-
-        final Material material = new Material(UUID.fromString("66f05626-82a0-800b-841d-73b9326ac71e"),"Slag");
+        if (materialOptional.isEmpty()){
+            throw new IncorrectMaterialException();
+        }
 
         Warehouse warehouse;
         if (warehouseOptional.isEmpty()){
@@ -55,7 +56,7 @@ public class DefaultAddMaterialToWarehouseUseCase implements AddMaterialToWareho
             warehouse = new Warehouse(
                     addMaterialToWarehouseCommand.warehouseId(),
                     sellerOptional.get(),
-                    material,
+                    materialOptional.get(),
                     new WarehouseActivityWindow()
             );
             warehouseCreatePort.warehouseCreated(warehouse);
@@ -64,7 +65,7 @@ public class DefaultAddMaterialToWarehouseUseCase implements AddMaterialToWareho
         }
         updateWarehousePort.updateWarehouse(warehouse);
         WarehouseActivity activity = warehouse.addMaterial(
-                material,
+                materialOptional.get(),
                 addMaterialToWarehouseCommand.amountTons(),
                 LocalDateTime.now()
                 );

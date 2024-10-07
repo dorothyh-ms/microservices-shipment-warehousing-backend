@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static be.kdg.prog6.landside.core.TestClasses.WAREHOUSE;
+import static be.kdg.prog6.landside.core.TestValues.SELLER_ID;
+import static be.kdg.prog6.landside.core.TestValues.WAREHOUSE;
 
 public class WarehouseLoadPortStub implements WarehouseLoadPort {
 
@@ -19,7 +20,9 @@ public class WarehouseLoadPortStub implements WarehouseLoadPort {
     @Override
     public List<Warehouse> loadWarehousesBySellerId(UUID sellerId) {
         warehouseList = new ArrayList<>();
-        warehouseList.add(WAREHOUSE);
+        if (SELLER_ID.equals(sellerId)){
+            warehouseList.add(WAREHOUSE);
+        }
         return warehouseList;
     }
 
