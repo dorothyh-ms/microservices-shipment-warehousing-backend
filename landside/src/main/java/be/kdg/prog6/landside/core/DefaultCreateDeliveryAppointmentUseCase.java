@@ -7,7 +7,7 @@ import be.kdg.prog6.landside.domain.Warehouse;
 import be.kdg.prog6.landside.exceptions.NoWarehouseAvailableException;
 import be.kdg.prog6.landside.ports.in.commands.CreateDeliveryAppointmentCommand;
 import be.kdg.prog6.landside.ports.in.CreateDeliveryAppointmentUseCase;
-import be.kdg.prog6.landside.ports.out.DeliveryAppointmentBookedPort;
+import be.kdg.prog6.landside.ports.out.AppointmentBookedPort;
 
 import be.kdg.prog6.landside.ports.out.WarehouseLoadPort;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,11 @@ import java.util.Optional;
 @Service
 public class DefaultCreateDeliveryAppointmentUseCase implements CreateDeliveryAppointmentUseCase {
 
-    private final DeliveryAppointmentBookedPort deliveryAppointmentBookedPort;
+    private final AppointmentBookedPort appointmentBookedPort;
     private final WarehouseLoadPort warehouseLoadPort;
 
-    public DefaultCreateDeliveryAppointmentUseCase(DeliveryAppointmentBookedPort deliveryAppointmentBookedPort, WarehouseLoadPort warehouseLoadPort) {
-        this.deliveryAppointmentBookedPort = deliveryAppointmentBookedPort;
+    public DefaultCreateDeliveryAppointmentUseCase(AppointmentBookedPort appointmentBookedPort, WarehouseLoadPort warehouseLoadPort) {
+        this.appointmentBookedPort = appointmentBookedPort;
         this.warehouseLoadPort = warehouseLoadPort;
     }
 
@@ -53,7 +53,7 @@ public class DefaultCreateDeliveryAppointmentUseCase implements CreateDeliveryAp
                 );
 
         if (createdAppointment.isPresent()){
-            deliveryAppointmentBookedPort.deliveryAppointmentBooked(createdAppointment.get());
+            appointmentBookedPort.appointmentBooked(createdAppointment.get());
         }
         return createdAppointment.isPresent();
 

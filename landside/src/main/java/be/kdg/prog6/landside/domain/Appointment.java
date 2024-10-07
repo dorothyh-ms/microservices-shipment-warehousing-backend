@@ -24,12 +24,17 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(UUID materialUUID, String truckLicensePlate, LocalDateTime timeSlotStart, Warehouse warehouse) {
+    public Appointment(String truckLicensePlate) {
+        this.truckLicensePlate = truckLicensePlate;
+    }
+
+    public Appointment(UUID materialUUID, String truckLicensePlate, LocalDateTime timeSlotStart, Warehouse warehouse, double amountTons) {
         this.materialUUID = materialUUID;
         this.truckLicensePlate = truckLicensePlate;
         this.timeSlotStart = timeSlotStart;
         this.status = AppointmentStatus.CREATED;
         this.warehouse = warehouse;
+        this.amountTons = amountTons;
     }
 
     public Appointment(UUID id, UUID materialUUID, String truckLicensePlate, LocalDateTime timeSlotStart, AppointmentStatus status, Warehouse warehouse) {
@@ -40,6 +45,8 @@ public class Appointment {
         this.status = status;
         this.warehouse = warehouse;
     }
+
+
 
     public UUID getId() {
         return id;
@@ -102,4 +109,16 @@ public class Appointment {
         this.status = AppointmentStatus.IN_PROGRESS;
     }
 
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", materialUUID=" + materialUUID +
+                ", truckLicensePlate='" + truckLicensePlate + '\'' +
+                ", amountTons=" + amountTons +
+                ", timeSlotStart=" + timeSlotStart +
+                ", status=" + status +
+                ", warehouse=" + warehouse +
+                '}';
+    }
 }

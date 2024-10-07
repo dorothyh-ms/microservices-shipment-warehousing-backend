@@ -42,16 +42,29 @@ public class DeliveryAppointmentJPAEntity {
     @JoinColumn(name="warehouse_id", nullable=false)
     private WarehouseJPAEntity assignedWarehouse;
 
+
+    @Column(name="amount_tons")
+    private double amountTons;
+
     public DeliveryAppointmentJPAEntity() {
     }
 
-    public DeliveryAppointmentJPAEntity(UUID materialUUID, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse) {
+    public double getAmountTons() {
+        return amountTons;
+    }
+
+    public void setAmountTons(double amountTons) {
+        this.amountTons = amountTons;
+    }
+
+    public DeliveryAppointmentJPAEntity(UUID materialUUID, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse, double amountTons) {
         this.materialUUID = materialUUID;
         this.truckLicensePlate = truckLicensePlate;
         this.date = date;
         this.hour = hour;
         this.status = status;
         this.assignedWarehouse= assignedWarehouse;
+        this.amountTons = amountTons;
     }
 
     public DeliveryAppointmentJPAEntity(UUID id, UUID materialUUID, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse) {

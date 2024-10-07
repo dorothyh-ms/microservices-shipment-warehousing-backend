@@ -6,7 +6,7 @@ import be.kdg.prog6.landside.domain.Appointment;
 import be.kdg.prog6.landside.domain.AppointmentStatus;
 import be.kdg.prog6.landside.domain.Warehouse;
 import be.kdg.prog6.landside.ports.out.DeliveryAppointmentLoadPort;
-import be.kdg.prog6.landside.ports.out.DeliveryAppointmentBookedPort;
+import be.kdg.prog6.landside.ports.out.AppointmentBookedPort;
 import be.kdg.prog6.landside.ports.out.TruckArrivedForDeliveryAppointmentPort;
 import org.springframework.stereotype.Repository;
 
@@ -14,18 +14,18 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
-public class DeliveryAppointmentDbAdapter implements DeliveryAppointmentBookedPort, DeliveryAppointmentLoadPort, TruckArrivedForDeliveryAppointmentPort {
+public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppointmentLoadPort, TruckArrivedForDeliveryAppointmentPort {
 
     private final SpringDataAppointmentRepository appointmentRepository;
     private final SpringDataWarehouseProjectionRepository warehouseRepository;
 
-    public DeliveryAppointmentDbAdapter(SpringDataAppointmentRepository appointmentRepository, SpringDataWarehouseProjectionRepository warehouseRepository) {
+    public AppointmentDbAdapter(SpringDataAppointmentRepository appointmentRepository, SpringDataWarehouseProjectionRepository warehouseRepository) {
         this.appointmentRepository = appointmentRepository;
         this.warehouseRepository = warehouseRepository;
     }
 
     @Override
-    public void deliveryAppointmentBooked(Appointment appointment) {
+    public void appointmentBooked(Appointment appointment) {
         Optional<WarehouseJPAEntity> warehouseJPAEntity = warehouseRepository.findById(appointment.getWarehouse().getId());
         appointmentRepository.save(new DeliveryAppointmentJPAEntity(
                 appointment.getMaterialUUID(),
@@ -33,7 +33,8 @@ public class DeliveryAppointmentDbAdapter implements DeliveryAppointmentBookedPo
                 appointment.getTimeSlotStart().toLocalDate(),
                 appointment.getTimeSlotStart().getHour(),
                 appointment.getStatus(),
-                warehouseJPAEntity.get()
+                warehouseJPAEntity.get(),
+                appointment.getAmountTons()
         ));
 
     }
@@ -53,7 +54,8 @@ public class DeliveryAppointmentDbAdapter implements DeliveryAppointmentBookedPo
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getSellerId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterialId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons()
-                    )
+                    ),
+                    deliveryAppointmentJPAEntity.getAmountTons()
             );
             appointment.setId(deliveryAppointmentJPAEntity.getId());
             return Optional.of(appointment);
@@ -63,6 +65,7 @@ public class DeliveryAppointmentDbAdapter implements DeliveryAppointmentBookedPo
 
     @Override
     public Optional<Appointment> loadAppointmentInProgressByLicensePlate(String licensePlate) {
+        System.out.println("Loading real appointment");
         Optional<DeliveryAppointmentJPAEntity> appointmentJPAEntityOptional = appointmentRepository.findFirstByTruckLicensePlateAndStatusOrderByDateDescHour(licensePlate, AppointmentStatus.IN_PROGRESS);
         if (appointmentJPAEntityOptional.isPresent()){
             DeliveryAppointmentJPAEntity deliveryAppointmentJPAEntity = appointmentJPAEntityOptional.get();
@@ -75,7 +78,8 @@ public class DeliveryAppointmentDbAdapter implements DeliveryAppointmentBookedPo
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getSellerId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterialId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons()
-                    )
+                    ),
+                    deliveryAppointmentJPAEntity.getAmountTons()
             );
             appointment.setId(deliveryAppointmentJPAEntity.getId());
             return Optional.of(appointment);

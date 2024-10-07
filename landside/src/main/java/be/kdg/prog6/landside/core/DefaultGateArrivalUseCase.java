@@ -35,6 +35,5 @@ public class DefaultGateArrivalUseCase implements GateArrivalUseCase {
         Appointment appointment = appointmentOptional.get();
         appointment.inProgress();
         truckArrivedForDeliveryAppointmentPort.truckArrivedAtGate(appointment);
-
     }
 }

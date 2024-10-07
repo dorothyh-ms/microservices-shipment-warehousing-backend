@@ -28,10 +28,10 @@ public class DaySchedule {
     public Optional<Appointment> bookAppointment( UUID materialUUID, String truckLicensePlate, double amountTons, LocalDateTime slotTime, Warehouse warehouse) {
         Optional<AppointmentWindow> hourWindow = appointmentWindowList.stream().filter(hour -> hour.getTimeSlot().getHour() == slotTime.getHour()).findFirst();
         if (hourWindow.isPresent()){
-            return hourWindow.get().addAppointment( materialUUID, truckLicensePlate, slotTime, warehouse);
+            return hourWindow.get().addAppointment( materialUUID, truckLicensePlate, slotTime, warehouse, amountTons);
         }
             AppointmentWindow newAppointmentWindow = new AppointmentWindow(slotTime);
-            Optional<Appointment> appointment = newAppointmentWindow.addAppointment( materialUUID, truckLicensePlate, slotTime, warehouse);
+            Optional<Appointment> appointment = newAppointmentWindow.addAppointment( materialUUID, truckLicensePlate, slotTime, warehouse, amountTons);
             appointmentWindowList.add(newAppointmentWindow);
             return appointment;
     };

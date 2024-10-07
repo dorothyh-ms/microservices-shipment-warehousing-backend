@@ -28,6 +28,10 @@ public class Warehouse {
         this.currentTons = amountTons;
     }
 
+    public Warehouse(UUID sellerId) {
+        this.sellerId = sellerId;
+    }
+
     public UUID getId() {
         return id;
     }
