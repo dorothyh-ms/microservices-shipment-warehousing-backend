@@ -1,9 +1,21 @@
+POST http://localhost:8180/realms/mineral/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=frontend&client_secret=exBMuPxIaEnnmQwoJUiEUMlAjdPccOHf&username=jane_doe&password=password&grant_type=password&scope=openid
+
+> {%
+    client.global.set("access_token", response.body.access_token)
+%}
+
+###
+
 POST http://localhost:8090/api/appointments
 Content-Type: application/json
 Accept:application/json
+Authorization: Bearer {{access_token}}
 
 {
-  "timeSlot":  "2024-10-07 09:30:34",
+  "timeSlot":  "2024-10-08 08:30:34",
   "truckLicensePlate":  "kd-kldfjkd-klk",
   "amountTons":  10.0,
   "materialUUID": "66f05626-82a0-800b-841d-73b9326ac71e",

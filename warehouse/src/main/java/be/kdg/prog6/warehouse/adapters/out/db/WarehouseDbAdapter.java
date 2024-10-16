@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import main.java.be.kdg.prog6.warehouse.domain.Seller;
 import main.java.be.kdg.prog6.warehouse.domain.Material;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,13 +35,13 @@ public class WarehouseDbAdapter implements LoadWarehousePort, UpdateWarehousePor
     @Override
     public Optional<Warehouse> loadWarehouseById(UUID warehouseId) {
 
-        final Optional<WarehouseJpaEntity> optionalWarehouseJpaEntity= warehouseRepository.findById(warehouseId);
-        if (optionalWarehouseJpaEntity.isPresent()){
+        final Optional<WarehouseJpaEntity> optionalWarehouseJpaEntity = warehouseRepository.findById(warehouseId);
+        if (optionalWarehouseJpaEntity.isPresent()) {
             final WarehouseJpaEntity warehouseJpaEntity = optionalWarehouseJpaEntity.get();
             final MaterialJpaEntity materialJpaEntity = warehouseJpaEntity.getMaterial();
             final SellerJpaEntity sellerJpaEntity = warehouseJpaEntity.getSeller();
             Seller seller = new Seller(sellerJpaEntity.getId(), sellerJpaEntity.getName());
-            Material material= new Material(materialJpaEntity.getId(), materialJpaEntity.getName());
+            Material material = new Material(materialJpaEntity.getId(), materialJpaEntity.getName());
             return Optional.of(new Warehouse(
                     warehouseJpaEntity.getUuid(),
                     seller,
@@ -77,5 +78,22 @@ public class WarehouseDbAdapter implements LoadWarehousePort, UpdateWarehousePor
         warehouseActivityJpaEntity.setActionType(activity.action());
         warehouseActivityJpaEntity.setAmountTons(activity.amountTons());
         warehouseActivityRepository.save(warehouseActivityJpaEntity);
+    }
+
+    @Override
+    public List<Warehouse> loadWarehouses() {
+        return warehouseRepository.findAll().stream().map(warehouseJpaEntity -> new Warehouse(
+                        warehouseJpaEntity.getUuid(),
+                        new Seller(
+                                warehouseJpaEntity.getSeller().getId(),
+                                warehouseJpaEntity.getSeller().getName()
+                        ),
+                        new Material(
+                                warehouseJpaEntity.getMaterial().getId(),
+                                warehouseJpaEntity.getMaterial().getName()
+                        ),
+                        new WarehouseActivityWindow()
+                )
+        ).toList();
     }
 }

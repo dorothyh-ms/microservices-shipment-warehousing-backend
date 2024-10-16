@@ -25,7 +25,7 @@ public class AppointmentWindow {
             throw new AppointmentLimitExceededException("No more than 40 appointments are allowed per hour");
         }
         Appointment appointment = new Appointment( materialUUID, truckLicensePlate, slotTime, warehouse, amountTons);
-        System.out.println(appointment);
+
         appointments.add(appointment);
         return Optional.of(appointment);
     }

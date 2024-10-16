@@ -26,7 +26,7 @@ public class WeighbridgeController {
             @RequestBody CreateWeighbridgeTransactionDto createWeighbridgeTransactionDto,
             @PathVariable String licensePlate){
 
-        System.out.println("arrived at weighbridge");
+
         weighbridgeArrivalUseCase.recordTruckArrivalWeight(
                 new CreateWeighBridgeTransactionCommand(
                         licensePlate,

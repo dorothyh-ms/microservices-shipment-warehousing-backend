@@ -29,7 +29,7 @@ public class WeighbridgeTransactionDbAdapter implements WeighbridgeTransactionSt
         WeighbridgeTransactionJPAEntity transactionEntity = new WeighbridgeTransactionJPAEntity();
         Optional<DeliveryAppointmentJPAEntity> appointmentOptional = appointmentRepository.findById(transaction.getAppointment().getId());
         if (appointmentOptional.isEmpty()) {
-            System.out.println("No appointment");
+
             throw new AppointmentNotFoundException("No appointment for truck at weighbridge");
         }
         DeliveryAppointmentJPAEntity appointmentJPAEntity = appointmentOptional.get();
