@@ -60,7 +60,6 @@ public class AppointmentController {
     }
 
     @PatchMapping("/{licensePlate}")
-    @PreAuthorize("hasAuthority('trucker')")
     public void arriveAtAppointment(
             @PathVariable String licensePlate
     ){

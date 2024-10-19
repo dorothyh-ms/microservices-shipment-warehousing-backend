@@ -3,6 +3,11 @@ server:
   servlet:
     context-path: /api
 
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
 
 spring:
   config:
@@ -30,8 +35,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8180/realms/mineral/protocol/openid-connect/certs
-          issuer-uri: http://localhost:8180/realms/mineral
+          jwk-set-uri: http://localhost:8180/realms/mineralflow/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8180/realms/mineralflow
 
 
 
