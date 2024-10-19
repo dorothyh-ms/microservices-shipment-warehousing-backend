@@ -1,5 +1,6 @@
 package be.kdg.prog6.warehouse.core;
 
+import be.kdg.prog6.common.events.WarehouseActivityType;
 import be.kdg.prog6.warehouse.domain.Warehouse;
 import be.kdg.prog6.warehouse.domain.WarehouseActivity;
 import be.kdg.prog6.warehouse.domain.WarehouseActivityWindow;
@@ -14,7 +15,6 @@ import main.java.be.kdg.prog6.warehouse.domain.Seller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import main.java.be.kdg.prog6.warehouse.domain.Material;
 
@@ -46,6 +46,7 @@ public class DefaultAddMaterialToWarehouseUseCase implements AddMaterialToWareho
         if (materialOptional.isEmpty()){
             throw new IncorrectMaterialException();
         }
+        Material material =materialOptional.get();
 
         Warehouse warehouse;
         if (warehouseOptional.isEmpty()){
@@ -56,7 +57,7 @@ public class DefaultAddMaterialToWarehouseUseCase implements AddMaterialToWareho
             warehouse = new Warehouse(
                     addMaterialToWarehouseCommand.warehouseId(),
                     sellerOptional.get(),
-                    materialOptional.get(),
+                    material,
                     new WarehouseActivityWindow()
             );
             warehouseCreatePort.warehouseCreated(warehouse);
@@ -64,11 +65,7 @@ public class DefaultAddMaterialToWarehouseUseCase implements AddMaterialToWareho
             warehouse = warehouseOptional.get();
         }
         updateWarehousePort.updateWarehouse(warehouse);
-        WarehouseActivity activity = warehouse.addMaterial(
-                materialOptional.get(),
-                addMaterialToWarehouseCommand.amountTons(),
-                LocalDateTime.now()
-                );
+        WarehouseActivity activity = warehouse.addActivity(new WarehouseActivity(WarehouseActivityType.DELIVERY, material, addMaterialToWarehouseCommand.amountTons(), LocalDateTime.now()));
         warehouseActivityCreatedPortList.forEach(port -> port.warehouseActivityCreated(warehouse.getId(), activity));
 
     }

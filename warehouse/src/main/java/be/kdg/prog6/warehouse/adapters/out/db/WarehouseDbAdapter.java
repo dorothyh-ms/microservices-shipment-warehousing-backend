@@ -42,12 +42,33 @@ public class WarehouseDbAdapter implements LoadWarehousePort, UpdateWarehousePor
             final SellerJpaEntity sellerJpaEntity = warehouseJpaEntity.getSeller();
             Seller seller = new Seller(sellerJpaEntity.getId(), sellerJpaEntity.getName());
             Material material = new Material(materialJpaEntity.getId(), materialJpaEntity.getName());
-            return Optional.of(new Warehouse(
+
+            Warehouse warehouse = new Warehouse(
                     warehouseJpaEntity.getUuid(),
                     seller,
                     material,
                     new WarehouseActivityWindow()
-            ));
+            );
+
+
+            List<WarehouseActivityJpaEntity> warehouseActivityJpaEntityList = null;
+            if (warehouseJpaEntity.getBaseAmountTonsDate() != null) {
+                warehouseActivityJpaEntityList = warehouseActivityRepository.findByWarehouseAndDateTimeGreaterThanEqual(warehouseJpaEntity, warehouseJpaEntity.getBaseAmountTonsDate());
+            } else {
+                warehouseActivityJpaEntityList = warehouseActivityRepository.findByWarehouse(warehouseJpaEntity);
+            }
+
+            for (WarehouseActivityJpaEntity warehouseActivityJpa : warehouseActivityJpaEntityList) {
+                warehouse.addActivity(new WarehouseActivity(
+                        warehouseActivityJpa.getActionType(),
+                        material,
+                        warehouseActivityJpa.getAmountTons(),
+                        warehouseActivityJpa.getDateTime())
+                );
+            }
+
+
+            return Optional.of(warehouse);
 
         }
         return Optional.empty();
@@ -70,6 +91,7 @@ public class WarehouseDbAdapter implements LoadWarehousePort, UpdateWarehousePor
 
     @Override
     public void warehouseActivityCreated(UUID warehouseId, WarehouseActivity activity) {
+        LOGGER.info("WarehouseDbAdapter running warehouseActivityCreated");
         LOGGER.info("Saving activity {} for warehouse with id {}", activity, warehouseId
         );
         WarehouseActivityJpaEntity warehouseActivityJpaEntity = new WarehouseActivityJpaEntity();
@@ -77,23 +99,9 @@ public class WarehouseDbAdapter implements LoadWarehousePort, UpdateWarehousePor
         warehouseActivityJpaEntity.setWarehouse(warehouse);
         warehouseActivityJpaEntity.setActionType(activity.action());
         warehouseActivityJpaEntity.setAmountTons(activity.amountTons());
+        warehouseActivityJpaEntity.setDateTime(activity.activityDate());
         warehouseActivityRepository.save(warehouseActivityJpaEntity);
     }
 
-    @Override
-    public List<Warehouse> loadWarehouses() {
-        return warehouseRepository.findAll().stream().map(warehouseJpaEntity -> new Warehouse(
-                        warehouseJpaEntity.getUuid(),
-                        new Seller(
-                                warehouseJpaEntity.getSeller().getId(),
-                                warehouseJpaEntity.getSeller().getName()
-                        ),
-                        new Material(
-                                warehouseJpaEntity.getMaterial().getId(),
-                                warehouseJpaEntity.getMaterial().getName()
-                        ),
-                        new WarehouseActivityWindow()
-                )
-        ).toList();
-    }
+
 }

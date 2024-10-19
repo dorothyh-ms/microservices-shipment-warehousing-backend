@@ -10,4 +10,6 @@ public interface WarehouseLoadPort {
     List<Warehouse> loadWarehousesBySellerId(UUID sellerId);
 
     Warehouse loadWarehouse(UUID warehouseId);
+
+    List<Warehouse> loadWarehouses();
 }

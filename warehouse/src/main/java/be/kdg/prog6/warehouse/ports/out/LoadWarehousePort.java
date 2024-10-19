@@ -10,5 +10,4 @@ public interface LoadWarehousePort {
 
     Optional<Warehouse> loadWarehouseById(UUID warehouseId);
 
-    List<Warehouse> loadWarehouses();
 }

@@ -57,7 +57,9 @@ public class WeighbridgeTransactionDbAdapter implements WeighbridgeTransactionSt
                                 appointmentJPAEntity.getAssignedWarehouse().getId(),
                                 appointmentJPAEntity.getAssignedWarehouse().getSellerId(),
                                 appointmentJPAEntity.getAssignedWarehouse().getMaterialId(),
-                                appointmentJPAEntity.getAssignedWarehouse().getCurrentTons()
+                                appointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
+                                appointmentJPAEntity.getAssignedWarehouse().getXCoord(),
+                                appointmentJPAEntity.getAssignedWarehouse().getYCoord()
                         )
                         );
         return appointmentRepository.findFirstByTruckLicensePlateAndStatusOrderByDateDescHour(licensePlate, AppointmentStatus.IN_PROGRESS)

@@ -9,6 +9,6 @@ client_id=frontend&client_secret=exBMuPxIaEnnmQwoJUiEUMlAjdPccOHf&username=john_
 
 ###
 
-GET http://localhost:8090/api/warehouses
+GET http://localhost:8090/api/warehouse-projections
 Accept:application/json
 Authorization: Bearer {{access_token}}

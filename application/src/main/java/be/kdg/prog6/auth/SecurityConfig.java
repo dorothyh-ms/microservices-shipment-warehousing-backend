@@ -32,7 +32,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults())
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(new AntPathRequestMatcher("/weighbridges/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/appointments/*", "PATCH")).permitAll()  // Allow PATCH requests change specific appt
+                        .requestMatchers("/api/weighbridges/**").permitAll()  // Allow all requests to weighbridge EP
                         .anyRequest().authenticated()
                 ).sessionManagement(mgmt -> mgmt.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(rs -> rs.jwt(jwt -> jwtAuthenticationConverter()));

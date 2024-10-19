@@ -3,7 +3,6 @@ package be.kdg.prog6.landside.adapters.out.db.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +22,16 @@ public class WarehouseJPAEntity {
 
     @Column(name="current_tons")
     double currentTons;
+
+    @Column(name="x_coord")
+    double xCoord;
+
+    @Column(name="y_coord")
+    double yCoord;
+
+
+
+
 
     public WarehouseJPAEntity() {
     }
@@ -73,5 +82,21 @@ public class WarehouseJPAEntity {
 
     public void setCurrentTons(double currentTons) {
         this.currentTons = currentTons;
+    }
+
+    public double getXCoord() {
+        return xCoord;
+    }
+
+    public void setXCoord(double xCoord) {
+        this.xCoord = xCoord;
+    }
+
+    public double getYCoord() {
+        return yCoord;
+    }
+
+    public void setYCoord(double yCoord) {
+        this.yCoord = yCoord;
     }
 }

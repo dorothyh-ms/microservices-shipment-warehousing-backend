@@ -1,6 +1,8 @@
-package be.kdg.prog6.warehouse.ports.in;
+package be.kdg.prog6.landside.ports.in;
 
-import be.kdg.prog6.warehouse.domain.Warehouse;
+
+
+import be.kdg.prog6.landside.domain.Warehouse;
 
 import java.util.List;
 

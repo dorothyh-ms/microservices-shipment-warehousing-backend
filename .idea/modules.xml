@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kdg.iml" filepath="$PROJECT_DIR$/.idea/modules/kdg.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kdg.warehouse/kdg.kdg.warehouse.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kdg.warehouse/kdg.kdg.warehouse.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kdg.warehouse/kdg.kdg.warehouse.test.iml" filepath="$PROJECT_DIR$/.idea/modules/kdg.warehouse/kdg.kdg.warehouse.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/landside/kdg.landside.main.iml" filepath="$PROJECT_DIR$/.idea/modules/landside/kdg.landside.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/warehouse/kdg.warehouse/kdg.warehouse.kdg.warehouse.iml" filepath="$PROJECT_DIR$/.idea/modules/warehouse/kdg.warehouse/kdg.warehouse.kdg.warehouse.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/warehouse/warehouse/kdg.warehouse.warehouse.iml" filepath="$PROJECT_DIR$/.idea/modules/warehouse/warehouse/kdg.warehouse.warehouse.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/boundedContextB/kdg.waterside.iml" filepath="$PROJECT_DIR$/.idea/modules/boundedContextB/kdg.waterside.iml" />

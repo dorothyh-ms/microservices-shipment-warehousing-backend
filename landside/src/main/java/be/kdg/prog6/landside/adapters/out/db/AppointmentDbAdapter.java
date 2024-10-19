@@ -53,7 +53,9 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getSellerId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterialId(),
-                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons()
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getXCoord(),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getYCoord()
                     ),
                     deliveryAppointmentJPAEntity.getAmountTons()
             );
@@ -77,7 +79,9 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getSellerId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterialId(),
-                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons()
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getXCoord(),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getYCoord()
                     ),
                     deliveryAppointmentJPAEntity.getAmountTons()
             );

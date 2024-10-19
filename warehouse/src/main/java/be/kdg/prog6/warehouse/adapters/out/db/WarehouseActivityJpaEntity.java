@@ -3,6 +3,7 @@ package be.kdg.prog6.warehouse.adapters.out.db;
 import be.kdg.prog6.common.events.WarehouseActivityType;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 @Entity
 @Table(catalog ="warehouse", name="warehouse_activities")
@@ -25,6 +26,13 @@ public class WarehouseActivityJpaEntity {
 
     @Column(name="amount_tons")
     private double amountTons;
+
+
+
+    @Column(name="activity_timestamp")
+    private LocalDateTime dateTime;
+
+
 
     public WarehouseActivityJpaEntity() {
     }
@@ -60,4 +68,22 @@ public class WarehouseActivityJpaEntity {
     public void setAmountTons(double amountTons) {
         this.amountTons = amountTons;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+
 }

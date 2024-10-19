@@ -7,6 +7,8 @@ import be.kdg.prog6.landside.ports.in.WeighbridgeArrivalUseCase;
 import be.kdg.prog6.landside.ports.in.WeighbridgeDepartureUseCase;
 import be.kdg.prog6.landside.ports.in.commands.CreateWeighBridgeTransactionCommand;
 import be.kdg.prog6.landside.ports.in.commands.FinalizeWeighBridgeTransactionCommand;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -35,8 +37,8 @@ public class WeighbridgeController {
         );
     }
 
-    @PatchMapping("/{licensePlate}/wbt")
-    public void addEndWeightToWeighbridgeDeliveryTicket(
+    @GetMapping("/{licensePlate}/wbt")
+    public ResponseEntity<String> addEndWeightToWeighbridgeDeliveryTicket(
             @RequestBody FinalizeWeighbridgeTransactionDto finalizeWeighbridgeTransactionDto,
             @PathVariable String licensePlate){
             WeighBridgeTransaction weighBridgeTransaction = weighbridgeDepartureUseCase.recordTruckDepartureWeight(
@@ -45,6 +47,7 @@ public class WeighbridgeController {
                         finalizeWeighbridgeTransactionDto.getTruckFinalWeightTons()
                 )
         );
+            return new ResponseEntity<>("Hello from weighbridge controller", HttpStatus.OK);
 
     }
 }

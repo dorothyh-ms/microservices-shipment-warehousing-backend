@@ -1,6 +1,7 @@
 package be.kdg.prog6.warehouse.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import be.kdg.prog6.common.events.WarehouseActivityType;
@@ -36,18 +37,16 @@ public class Warehouse {
     }
 
 
-
-    public WarehouseActivity addMaterial(Material material, double amountTons, LocalDateTime datetime){
-        if (canStoreMaterial(material)){
-        WarehouseActivity warehouseActivity = new WarehouseActivity(WarehouseActivityType.DELIVERY, amountTons, datetime);
-        this.setMaterial(material);
-        return warehouseActivity;
+    public WarehouseActivity addActivity(WarehouseActivity activity) {
+        if (canStoreMaterial(material)) {
+            this.activityWindow.addActivity(activity);
+            return activity;
         } else {
             throw new IncorrectMaterialException();
         }
     }
 
-    private boolean canStoreMaterial(Material material){
+    private boolean canStoreMaterial(Material material) {
         return material.getId().equals(this.material.getId()) || (this.material == null);
     }
 
@@ -75,7 +74,7 @@ public class Warehouse {
         this.id = id;
     }
 
-    public void snapshotAmountTons(){
+    public void snapshotAmountTons() {
 
     }
 
@@ -85,5 +84,9 @@ public class Warehouse {
 
     public LocalDateTime getBaseAmountTonsDate() {
         return baseAmountTonsDate;
+    }
+
+    public List<WarehouseActivity> getWarehouseActivities() {
+        return activityWindow.getActivityList();
     }
 }

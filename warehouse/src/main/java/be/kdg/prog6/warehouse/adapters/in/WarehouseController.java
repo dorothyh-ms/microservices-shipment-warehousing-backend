@@ -1,8 +1,8 @@
 package be.kdg.prog6.warehouse.adapters.in;
 
+import be.kdg.prog6.warehouse.adapters.in.dtos.WarehouseActivityDto;
 import be.kdg.prog6.warehouse.adapters.in.dtos.WarehouseDto;
 import be.kdg.prog6.warehouse.ports.in.GetActivitiesOfWarehouseUseCase;
-import be.kdg.prog6.warehouse.ports.in.GetWarehousesUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,34 +16,12 @@ import java.util.List;
 @RequestMapping("/warehouses")
 public class WarehouseController {
 
-    private final GetWarehousesUseCase getWarehousesUseCase;
-
-
-
-    public WarehouseController(GetWarehousesUseCase getWarehousesUseCase) {
-        this.getWarehousesUseCase = getWarehousesUseCase;
-    }
-
-    @GetMapping
+    @GetMapping("/{warehouseId}/activities")
     @PreAuthorize("hasAuthority('warehouse_manager')")
-    public ResponseEntity<List<WarehouseDto>> getWarehouses(@AuthenticationPrincipal Jwt token) {
-        var warehouses = getWarehousesUseCase.getWarehouses();
-        return new ResponseEntity<>(
-                warehouses.stream().map(
-                        warehouse -> new WarehouseDto(
-                                warehouse.getSeller().getName(),
-                                warehouse.getMaterial().getName(),
-                                0
-                        )
-                ).toList(),
-                HttpStatus.OK
-        );
-    }
+    public ResponseEntity<List<WarehouseActivityDto>> getActivitiesOfWarehouse(@AuthenticationPrincipal Jwt token) {
 
-//    @GetMapping("/{warehouseId}/activities")
-//    @PreAuthorize("hasAuthority('warehouse_manager')")
-//    public void getActivitiesOfWarehouse(@AuthenticationPrincipal Jwt token) {
-//
-//
-//    }
+        return new ResponseEntity<
+                List<WarehouseActivityDto>>(List.of(), HttpStatus.OK);
+
+    }
 }

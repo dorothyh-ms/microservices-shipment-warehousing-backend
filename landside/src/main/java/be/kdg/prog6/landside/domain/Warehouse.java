@@ -7,6 +7,9 @@ import java.util.UUID;
 public class Warehouse {
 
     public static final double MAX_CAPACITY_TONS = 500000;
+    public static final double LENGTH_METERS = 80;
+
+    public static final double WIDTH_METERS = 30;
 
     private UUID id;
 
@@ -16,11 +19,17 @@ public class Warehouse {
 
     private double currentTons;
 
-    public Warehouse(UUID id, UUID sellerId, UUID materialID, double currentTons) {
+    private double xCoord;
+
+    private double yCoord;
+
+    public Warehouse(UUID id, UUID sellerId, UUID materialID, double currentTons, double xCoord, double yCoord) {
         this.id = id;
         this.sellerId = sellerId;
         this.materialID = materialID;
         this.currentTons = currentTons;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
     }
 
     public Warehouse(UUID id, double amountTons){
@@ -70,6 +79,30 @@ public class Warehouse {
         return (currentTons < MAX_CAPACITY_TONS*0.8) && materialMatchedOrNothingStored;
     }
 
+
+    public void changeCurrentAmountTons(double amountTons, WarehouseActivityType activityType) {
+        switch(activityType){
+            case DELIVERY -> this.currentTons += amountTons;
+            case SHIPMENT -> this.currentTons -= amountTons;
+        }
+    }
+
+    public double getXCoord() {
+        return xCoord;
+    }
+
+    public void setXCoord(double xCoord) {
+        this.xCoord = xCoord;
+    }
+
+    public double getYCoord() {
+        return yCoord;
+    }
+
+    public void setYCoord(double yCoord) {
+        this.yCoord = yCoord;
+    }
+
     @Override
     public String toString() {
         return "Warehouse{" +
@@ -77,14 +110,8 @@ public class Warehouse {
                 ", sellerId=" + sellerId +
                 ", materialID=" + materialID +
                 ", currentTons=" + currentTons +
+                ", xCoord=" + xCoord +
+                ", yCoord=" + yCoord +
                 '}';
-    }
-
-
-    public void changeCurrentAmountTons(double amountTons, WarehouseActivityType activityType) {
-        switch(activityType){
-            case DELIVERY -> this.currentTons += amountTons;
-            case SHIPMENT -> this.currentTons -= amountTons;
-        }
     }
 }
