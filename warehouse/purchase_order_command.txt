@@ -1,0 +1,43 @@
+ curl -s -u myuser:mypassword -H "Accept: application/json" -H "Content-Type:application/json" -X POST -d'{
+     "vhost": "/",
+     "name": "purchase_order_commands",
+"properties": {},
+"routing_key": "purchase_order_commands",
+ "delivery_mode": "1",
+ "payload": "{\"purchaseOrderNumber\":\"PO99999\",\"sellerId\":\"b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4\",\"buyerEnterpriseNumber\":\"0111111111\",\"vesselNumber\":\"VS_999999\",\"orderLines\":[{\"material\":\"CEMENT\",\"amountTons\":\"5\"}]}",
+ "headers": {},
+  "props": {},
+ "payload_encoding": "string"
+  }' http://localhost:15672/api/exchanges/%2F/purchase_order_commands/publish
+
+
+
+ curl -s -u myuser:mypassword -H "Accept: application/json" -H "Content-Type:application/json" -X POST -d'{
+     "vhost": "/",
+     "name": "purchase_order_commands",
+"properties": {},
+"routing_key": "purchase_order_commands",
+ "delivery_mode": "1",
+ "payload": "{\"purchaseOrderNumber\":\"PO99998\",\"sellerId\":\"b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4\",\"buyerEnterpriseNumber\":\"0111111111\",\"vesselNumber\":\"VS_999999\",\"orderLines\":[{\"material\":\"SLAG\",\"amountTons\":\"10\"},{\"material\":\"CEMENT\",\"amountTons\":\"5\"}]}",
+ "headers": {},
+  "props": {},
+ "payload_encoding": "string"
+  }' http://localhost:15672/api/exchanges/%2F/purchase_order_commands/publish
+
+
+
+ curl -s -u myuser:mypassword -H "Accept: application/json" -H "Content-Type:application/json" -X POST -d'{
+     "vhost": "/",
+     "name": "purchase_order_commands",
+"properties": {},
+"routing_key": "purchase_order_commands",
+ "delivery_mode": "1",
+ "payload": "{\"purchaseOrderNumber\":\"PO99998\",\"sellerId\":\"b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4\",\"buyerEnterpriseNumber\":\"0111111111\",\"vesselNumber\":\"VS_999999\",\"orderLines\":[{\"material\":\"SLAG\",\"amountTons\":\"10\"},{\"material\":\"CEMENT\",\"amountTons\":\"5\"}]}",
+ "headers": {},
+  "props": {},
+ "payload_encoding": "string"
+  }' http://localhost:15672/api/exchanges/%2F/purchase_order_commands/publish
+
+
+
+

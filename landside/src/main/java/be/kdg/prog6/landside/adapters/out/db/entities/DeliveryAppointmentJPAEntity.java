@@ -1,6 +1,7 @@
 package be.kdg.prog6.landside.adapters.out.db.entities;
 
 
+import be.kdg.prog6.common.domain.Material;
 import be.kdg.prog6.landside.domain.AppointmentStatus;
 import jakarta.persistence.*;
 
@@ -18,8 +19,8 @@ public class DeliveryAppointmentJPAEntity {
     @Column(name="seller_id")
     private UUID sellerUUID;
 
-    @Column(name="material_id")
-    private UUID materialUUID;
+    @Enumerated(EnumType.STRING)
+    private Material material;
 
 
     @Column(name="truck_license_plate")
@@ -57,8 +58,8 @@ public class DeliveryAppointmentJPAEntity {
         this.amountTons = amountTons;
     }
 
-    public DeliveryAppointmentJPAEntity(UUID materialUUID, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse, double amountTons) {
-        this.materialUUID = materialUUID;
+    public DeliveryAppointmentJPAEntity(Material material, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse, double amountTons) {
+        this.material = material;
         this.truckLicensePlate = truckLicensePlate;
         this.date = date;
         this.hour = hour;
@@ -67,9 +68,9 @@ public class DeliveryAppointmentJPAEntity {
         this.amountTons = amountTons;
     }
 
-    public DeliveryAppointmentJPAEntity(UUID id, UUID materialUUID, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse) {
+    public DeliveryAppointmentJPAEntity(UUID id, Material material, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse) {
         this.id = id;
-        this.materialUUID = materialUUID;
+        this.material =material;
         this.truckLicensePlate = truckLicensePlate;
         this.date = date;
         this.hour = hour;
@@ -85,12 +86,12 @@ public class DeliveryAppointmentJPAEntity {
         this.sellerUUID = sellerUUID;
     }
 
-    public UUID getMaterialUUID() {
-        return materialUUID;
+    public Material getMaterial() {
+        return material;
     }
 
-    public void setMaterialUUID(UUID materialUUID) {
-        this.materialUUID = materialUUID;
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
     public String getTruckLicensePlate() {

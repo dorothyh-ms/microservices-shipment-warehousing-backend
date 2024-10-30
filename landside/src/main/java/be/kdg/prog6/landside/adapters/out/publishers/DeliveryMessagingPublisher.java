@@ -2,7 +2,6 @@ package be.kdg.prog6.landside.adapters.out.publishers;
 
 
 import be.kdg.prog6.common.events.WeighbridgeDepartureEvent;
-import be.kdg.prog6.common.events.WarehouseActivityType;
 import be.kdg.prog6.landside.domain.WeighBridgeTransaction;
 import be.kdg.prog6.landside.ports.out.PayloadDeliveredPort;
 
@@ -26,7 +25,7 @@ public class DeliveryMessagingPublisher implements PayloadDeliveredPort {
         final String routingKey = "weighbridge_departures";
         LOGGER.info("Publishing weighbridge transaction {}", weighBridgeTransaction);
         rabbitTemplate.convertAndSend(EXCHANGE_NAME, routingKey, new WeighbridgeDepartureEvent(
-                weighBridgeTransaction.getAppointment().getMaterialUUID(),
+                weighBridgeTransaction.getAppointment().getMaterial(),
                 weighBridgeTransaction.getAppointment().getWarehouse().getSellerId(),
                 weighBridgeTransaction.getAppointment().getWarehouse().getId(),
                 weighBridgeTransaction.getWeightOut().weighDateTime(),

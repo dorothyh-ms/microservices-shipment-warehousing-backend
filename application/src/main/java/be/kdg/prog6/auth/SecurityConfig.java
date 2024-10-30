@@ -30,11 +30,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http .csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/appointments/**","PATCH").permitAll()  // Allow PATCH requests change specific appt
                         .requestMatchers("/weighbridges/**").permitAll()
-                        .requestMatchers("/error").permitAll() // Allow all requests to weighbridge EP
+                        .requestMatchers("/shipping-orders/**").permitAll()
+                        .requestMatchers("/inspection-operations/**").permitAll()
+                        .requestMatchers("/bunkering-operations/**").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(mgmt -> mgmt.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(rs -> rs.jwt(jwt -> jwtAuthenticationConverter()));

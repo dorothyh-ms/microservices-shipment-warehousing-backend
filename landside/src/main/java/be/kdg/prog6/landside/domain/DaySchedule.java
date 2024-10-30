@@ -1,5 +1,7 @@
 package be.kdg.prog6.landside.domain;
 
+import be.kdg.prog6.common.domain.Material;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,15 +27,22 @@ public class DaySchedule {
         this.date = date;
     }
 
-    public Optional<Appointment> bookAppointment( UUID materialUUID, String truckLicensePlate, double amountTons, LocalDateTime slotTime, Warehouse warehouse) {
+    public Optional<Appointment> bookAppointment(Material material, String truckLicensePlate, double amountTons, LocalDateTime slotTime, Warehouse warehouse) {
         Optional<AppointmentWindow> hourWindow = appointmentWindowList.stream().filter(hour -> hour.getTimeSlot().getHour() == slotTime.getHour()).findFirst();
         if (hourWindow.isPresent()){
-            return hourWindow.get().addAppointment( materialUUID, truckLicensePlate, slotTime, warehouse, amountTons);
+            return hourWindow.get().addAppointment( material, truckLicensePlate, slotTime, warehouse, amountTons);
         }
             AppointmentWindow newAppointmentWindow = new AppointmentWindow(slotTime);
-            Optional<Appointment> appointment = newAppointmentWindow.addAppointment( materialUUID, truckLicensePlate, slotTime, warehouse, amountTons);
+            Optional<Appointment> appointment = newAppointmentWindow.addAppointment( material, truckLicensePlate, slotTime, warehouse, amountTons);
             appointmentWindowList.add(newAppointmentWindow);
             return appointment;
     };
 
+    @Override
+    public String toString() {
+        return "DaySchedule{" +
+                "date=" + date +
+                ", appointmentWindowList=" + appointmentWindowList +
+                '}';
+    }
 }

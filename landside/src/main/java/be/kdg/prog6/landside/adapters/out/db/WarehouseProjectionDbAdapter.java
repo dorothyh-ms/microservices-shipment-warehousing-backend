@@ -27,7 +27,7 @@ public class WarehouseProjectionDbAdapter implements WarehouseLoadPort, UpdateWa
     @Override
     public Warehouse loadWarehouse(UUID warehouseId) {
         return warehouseRepository.findById(warehouseId)
-                .map(warehouse -> new Warehouse(warehouseId, warehouse.getSellerId(), warehouse.getMaterialId(), warehouse.getCurrentTons(), warehouse.getXCoord(), warehouse.getYCoord()))
+                .map(warehouse -> new Warehouse(warehouseId, warehouse.getSellerId(), warehouse.getMaterial(), warehouse.getCurrentTons(), warehouse.getXCoord(), warehouse.getYCoord()))
                 .orElseGet(() -> new Warehouse(warehouseId, 0));
     }
 
@@ -45,7 +45,7 @@ public class WarehouseProjectionDbAdapter implements WarehouseLoadPort, UpdateWa
         return warehouseJPAEntities.stream().map(warehouseEntity -> new Warehouse(
                 warehouseEntity.getId(),
                 warehouseEntity.getSellerId(),
-                warehouseEntity.getMaterialId(),
+                warehouseEntity.getMaterial(),
                 warehouseEntity.getCurrentTons(),
                 warehouseEntity.getXCoord(),
                 warehouseEntity.getYCoord()
@@ -58,7 +58,7 @@ public class WarehouseProjectionDbAdapter implements WarehouseLoadPort, UpdateWa
         return warehouseRepository.findAll().stream().map(warehouseJpaEntity -> new Warehouse(
                         warehouseJpaEntity.getId(),
                         warehouseJpaEntity.getSellerId(),
-                        warehouseJpaEntity.getMaterialId(),
+                        warehouseJpaEntity.getMaterial(),
                         warehouseJpaEntity.getCurrentTons(),
                         warehouseJpaEntity.getXCoord(),
                         warehouseJpaEntity.getYCoord()

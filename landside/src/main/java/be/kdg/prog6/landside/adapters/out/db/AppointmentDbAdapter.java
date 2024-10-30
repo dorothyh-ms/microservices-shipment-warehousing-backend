@@ -28,7 +28,7 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
     public void appointmentBooked(Appointment appointment) {
         Optional<WarehouseJPAEntity> warehouseJPAEntity = warehouseRepository.findById(appointment.getWarehouse().getId());
         appointmentRepository.save(new DeliveryAppointmentJPAEntity(
-                appointment.getMaterialUUID(),
+                appointment.getMaterial(),
                 appointment.getTruckLicensePlate(),
                 appointment.getTimeSlotStart().toLocalDate(),
                 appointment.getTimeSlotStart().getHour(),
@@ -46,13 +46,13 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
         if (appointmentJPAEntityOptional.isPresent()){
             DeliveryAppointmentJPAEntity deliveryAppointmentJPAEntity = appointmentJPAEntityOptional.get();
             Appointment appointment = new Appointment(
-                    deliveryAppointmentJPAEntity.getMaterialUUID(),
+                    deliveryAppointmentJPAEntity.getMaterial(),
                     deliveryAppointmentJPAEntity.getTruckLicensePlate(),
                     deliveryAppointmentJPAEntity.getDate().atTime(deliveryAppointmentJPAEntity.getHour(), 0),
                     new Warehouse(
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getSellerId(),
-                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterialId(),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterial(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getXCoord(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getYCoord()
@@ -72,13 +72,13 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
         if (appointmentJPAEntityOptional.isPresent()){
             DeliveryAppointmentJPAEntity deliveryAppointmentJPAEntity = appointmentJPAEntityOptional.get();
             Appointment appointment = new Appointment(
-                    deliveryAppointmentJPAEntity.getMaterialUUID(),
+                    deliveryAppointmentJPAEntity.getMaterial(),
                     deliveryAppointmentJPAEntity.getTruckLicensePlate(),
                     deliveryAppointmentJPAEntity.getDate().atTime(deliveryAppointmentJPAEntity.getHour(), 0),
                     new Warehouse(
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getId(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getSellerId(),
-                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterialId(),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterial(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getXCoord(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getYCoord()

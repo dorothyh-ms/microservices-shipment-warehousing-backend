@@ -15,5 +15,7 @@ public class WarehouseActivityWindow {
         return activityList;
     }
 
+    public WarehouseActivityWindow() {
+    }
 }
 

@@ -15,15 +15,19 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQTopology {
 
 
-    // Exchanges
+    // Queues
     public static final String LANDSIDE_DELIVERIES_QUEUE = "landside_deliveries";
     public static final String WAREHOUSE_EVENTS_QUEUE = "warehouse_events_queue";
+    public static final String CREATED_PURCHASE_ORDERS_QUEUE = "created_purchase_orders_queue";
+    public static final String FULFILLED_PURCHASE_ORDERS_QUEUE = "fulfilled_purchase_orders_queue";
+    public static final String SHIPPING_ORDER_QUEUE = "shipping_order_queue";
 
 
-    // Queues
+    // Exchanges
     public static final String WEIGHBRIDGE_DEPARTURES = "weighbridge_departures";
-
     public static final String WAREHOUSE_EVENTS_FAN_OUT = "warehouse_events";
+    public static final String PURCHASE_ORDERS = "purchase_orders";
+    public static final String SHIPPING_ORDER_COMMANDS = "shipping_order_commands";
 
 
     @Bean
@@ -38,6 +42,7 @@ public class RabbitMQTopology {
 
 
 
+
     @Bean
     FanoutExchange warehouseEventsExchange() {
         return new FanoutExchange(WAREHOUSE_EVENTS_FAN_OUT);
@@ -47,6 +52,70 @@ public class RabbitMQTopology {
     Queue warehouseEventsQueue() {
         return new Queue(WAREHOUSE_EVENTS_QUEUE);
     }
+
+
+    @Bean
+    TopicExchange purchaseOrderExchange() {
+        return new TopicExchange(PURCHASE_ORDERS);
+    }
+
+    @Bean
+    Queue purchaseOrderCreatedQueue() {
+        return new Queue(CREATED_PURCHASE_ORDERS_QUEUE);
+    }
+
+    @Bean
+    Queue purchaseOrderFulfilledQueue() {
+        return new Queue(FULFILLED_PURCHASE_ORDERS_QUEUE);
+    }
+
+
+
+    @Bean
+    DirectExchange shippingOrderExchange() {
+        return new DirectExchange(SHIPPING_ORDER_COMMANDS);
+    }
+
+    @Bean
+    Queue shippingOrderQueue() {
+        return new Queue(SHIPPING_ORDER_QUEUE);
+    }
+
+    @Bean
+    Binding bindShippingOrderCommandExchangeToShippingOrderCommandQueue(
+            Queue shippingOrderQueue,
+            DirectExchange shippingOrderExchange
+    ){
+        return BindingBuilder
+                .bind(shippingOrderQueue)
+                .to(shippingOrderExchange)
+                .with(SHIPPING_ORDER_COMMANDS);
+    }
+
+
+    @Bean
+    Binding bindPurchaseOrderCommandExchangeToPurchaseOrderCommandQueue(
+            Queue purchaseOrderCreatedQueue,
+            TopicExchange purchaseOrderExchange
+    ){
+        return BindingBuilder
+                .bind(purchaseOrderCreatedQueue)
+                .to(purchaseOrderExchange)
+                .with("purchase_orders.create");
+    }
+
+    @Bean
+    Binding bindPurchaseOrderFulfilledEventExchangeToPurchaseOrderCommandQueue(
+            Queue purchaseOrderFulfilledQueue,
+            TopicExchange purchaseOrderExchange
+    ){
+        return BindingBuilder
+                .bind(purchaseOrderFulfilledQueue)
+                .to(purchaseOrderExchange)
+                .with("purchase_orders.fulfilled");
+    }
+
+
 
 
     @Bean

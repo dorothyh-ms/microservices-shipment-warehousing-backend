@@ -1,0 +1,21 @@
+POST http://localhost:8180/realms/mineral/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=frontend&client_secret=exBMuPxIaEnnmQwoJUiEUMlAjdPccOHf&username=john_smith&password=password&grant_type=password&scope=openid
+
+> {%
+    client.global.set("access_token", response.body.access_token)
+%}
+
+
+###
+
+GET http://localhost:8090/api/warehouses/38629eef-43f1-45c7-a4bb-522ce0febdeb
+Accept:application/json
+Authorization: Bearer {{access_token}}
+
+###
+
+GET http://localhost:8090/api/purchase-orders
+Accept:application/json
+Authorization: Bearer {{access_token}}

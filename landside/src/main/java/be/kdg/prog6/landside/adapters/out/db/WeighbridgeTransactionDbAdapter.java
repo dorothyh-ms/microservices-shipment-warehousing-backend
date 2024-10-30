@@ -49,14 +49,14 @@ public class WeighbridgeTransactionDbAdapter implements WeighbridgeTransactionSt
         DeliveryAppointmentJPAEntity appointmentJPAEntity = appointmentOptional.get();
         Appointment appointment = new Appointment(
                 appointmentJPAEntity.getId(),
-                appointmentJPAEntity.getMaterialUUID(),
+                appointmentJPAEntity.getMaterial(),
                 appointmentJPAEntity.getTruckLicensePlate(),
                 appointmentJPAEntity.getDate().atTime(appointmentJPAEntity.getHour(), 0),
                 appointmentJPAEntity.getStatus(),
                         new Warehouse(
                                 appointmentJPAEntity.getAssignedWarehouse().getId(),
                                 appointmentJPAEntity.getAssignedWarehouse().getSellerId(),
-                                appointmentJPAEntity.getAssignedWarehouse().getMaterialId(),
+                                appointmentJPAEntity.getAssignedWarehouse().getMaterial(),
                                 appointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
                                 appointmentJPAEntity.getAssignedWarehouse().getXCoord(),
                                 appointmentJPAEntity.getAssignedWarehouse().getYCoord()
@@ -87,7 +87,6 @@ public class WeighbridgeTransactionDbAdapter implements WeighbridgeTransactionSt
         WeighbridgeTransactionJPAEntity weighbridgeTransactionJPAEntity = optionalWeighbridgeTransactionJPAEntity.get();
         weighbridgeTransactionJPAEntity.setDepartureDateTime(transaction.getWeightOut().weighDateTime());
         weighbridgeTransactionJPAEntity.setDepartureWeightTons(transaction.getWeightOut().weightTons());
-        System.out.println("saving weighbridge transaction");
         weighbridgeTransactionRepository.save(weighbridgeTransactionJPAEntity);
         return transaction;
     }

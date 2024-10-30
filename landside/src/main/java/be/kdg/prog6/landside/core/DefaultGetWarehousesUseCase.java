@@ -1,6 +1,5 @@
 package be.kdg.prog6.landside.core;
 
-import be.kdg.prog6.landside.adapters.in.WarehouseProjectionController;
 import be.kdg.prog6.landside.domain.Warehouse;
 import be.kdg.prog6.landside.ports.in.GetWarehousesUseCase;
 import be.kdg.prog6.landside.ports.out.WarehouseLoadPort;

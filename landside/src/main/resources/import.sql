@@ -1,15 +1,31 @@
 INSERT INTO warehouse.sellers (id, name) VALUES (UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 'test_seller');
-INSERT INTO warehouse.material (id, name) VALUES (UUID_TO_BIN('66f05626-82a0-800b-841d-73b9326ac71e'), 'Slag');
 
-INSERT INTO warehouse.warehouses(uuid, seller_id, base_amount_tons, material_id) VALUES (UUID_TO_BIN('57f7f2a0-6928-4fe8-9bb8-afc36915929f'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 0.0, UUID_TO_BIN('66f05626-82a0-800b-841d-73b9326ac71e'));
+INSERT INTO warehouse.warehouses(uuid, seller_id, base_amount_tons, material) VALUES (UUID_TO_BIN('57f7f2a0-6928-4fe8-9bb8-afc36915929f'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 0.0, "CEMENT");
+INSERT INTO warehouse.warehouses(uuid, seller_id, base_amount_tons, material) VALUES (UUID_TO_BIN('69fb338a-fb24-48d3-9933-7d16dde1fa2c'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 0.0, "IRON_ORE");
+INSERT INTO warehouse.warehouses(uuid, seller_id, base_amount_tons, material) VALUES (UUID_TO_BIN('d4164423-40d1-4743-a3fc-781a401e95d0'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 0.0, "PETCOKE");
+INSERT INTO warehouse.warehouses(uuid, seller_id, base_amount_tons, material) VALUES (UUID_TO_BIN('48629eef-43f1-45c7-a4bb-522ce0febdeb'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 0.0, "SLAG");
+INSERT INTO warehouse.warehouses(uuid, seller_id, base_amount_tons, material) VALUES (UUID_TO_BIN('38629eef-43f1-45c7-a4bb-522ce0febdeb'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), 0.0, "GYPSUM");
 
 
-
-INSERT INTO landside.warehouses(warehouse_id, seller_id, material_id, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('57f7f2a0-6928-4fe8-9bb8-afc36915929f'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), UUID_TO_BIN('66f05626-82a0-800b-841d-73b9326ac71e'), 0, 0, 0);
-INSERT INTO landside.warehouses(warehouse_id, seller_id, material_id, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('69fb338a-fb24-48d3-9933-7d16dde1fa2c'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), UUID_TO_BIN('66f05626-82a0-800b-841d-73b9326ac71e'), 0, 0, 50);
-INSERT INTO landside.warehouses(warehouse_id, seller_id, material_id, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('d4164423-40d1-4743-a3fc-781a401e95d0'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), UUID_TO_BIN('66f05626-82a0-800b-841d-73b9326ac71e'), 0, 100, 0);
-INSERT INTO landside.warehouses(warehouse_id, seller_id, material_id, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('48629eef-43f1-45c7-a4bb-522ce0febdeb'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), UUID_TO_BIN('66f05626-82a0-800b-841d-73b9326ac71e'), 0, 100, 50);
-INSERT INTO landside.warehouses(warehouse_id, seller_id, material_id, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('38629eef-43f1-45c7-a4bb-522ce0febdeb'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), UUID_TO_BIN('66f05626-82a0-800b-841d-73b9326ac71e'), 0, 200, 0);
+INSERT INTO landside.warehouses(warehouse_id, seller_id, material, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('57f7f2a0-6928-4fe8-9bb8-afc36915929f'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), "CEMENT", 0, 0, 0);
+INSERT INTO landside.warehouses(warehouse_id, seller_id, material, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('69fb338a-fb24-48d3-9933-7d16dde1fa2c'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), "IRON_ORE", 0, 0, 50);
+INSERT INTO landside.warehouses(warehouse_id, seller_id, material, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('d4164423-40d1-4743-a3fc-781a401e95d0'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), "PETCOKE", 0, 100, 0);
+INSERT INTO landside.warehouses(warehouse_id, seller_id, material, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('48629eef-43f1-45c7-a4bb-522ce0febdeb'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), "SLAG", 0, 100, 50);
+INSERT INTO landside.warehouses(warehouse_id, seller_id, material, current_tons, x_coord, y_coord) VALUES (UUID_TO_BIN('38629eef-43f1-45c7-a4bb-522ce0febdeb'), UUID_TO_BIN('b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4'), "GYPSUM", 0, 200, 0);
 
 
 INSERT INTO landside.appointments (id, warehouse_id, appointment_date, appointment_hour, material_id, truck_license_plate, status) VALUES (UUID_TO_BIN('66f2fdb0-71d8-800b-afae-98e6824af9f5'), UUID_TO_BIN('38629eef-43f1-45c7-a4bb-522ce0febdeb'), '2023-10-28', 19, UUID_TO_BIN('66f2fdb0-71d8-800b-afae-98e6824af9f5'),  'ppp-pppp-ppp', 'CONSOLIDATED');
+
+
+
+INSERT INTO waterside.shipping_orders(id, purchase_order_number, shipping_order_number, vessel_number) VALUES (UUID_TO_BIN('e942297d-3b0e-494f-86c1-af9d3b266ff4'), 'PO_000000', 'SO_00000', 'VS_00000');
+INSERT INTO waterside.shipping_orders(id, purchase_order_number, shipping_order_number, vessel_number) VALUES (UUID_TO_BIN('bbf72f41-8107-48f9-99fd-dad4859faa83'), 'PO_000001', 'SO_00001', 'VS_00001');
+INSERT INTO waterside.shipping_orders(id, purchase_order_number, shipping_order_number, vessel_number) VALUES (UUID_TO_BIN('c7e273e1-fd32-4fb5-97b0-a6f2d953c2de'), 'PO_000002', 'SO_00002', 'VS_00002');
+INSERT INTO waterside.shipping_orders(id, purchase_order_number, shipping_order_number, vessel_number) VALUES (UUID_TO_BIN('1a6ba30b-a762-442f-bc72-2f79ca375e17'), 'PO_000003', 'SO_00003', 'VS_00003');
+INSERT INTO waterside.shipping_orders(id, purchase_order_number, shipping_order_number, vessel_number) VALUES (UUID_TO_BIN('99624568-651d-437a-848e-50b717a68e77'), 'PO_000004', 'SO_00004', 'VS_00004');
+
+
+INSERT INTO waterside.bunkering_operations(id, shipping_order_id, planned_date) VALUES (UUID_TO_BIN('6146d373-8a72-49eb-a70b-31c03002a2e9'), UUID_TO_BIN('e942297d-3b0e-494f-86c1-af9d3b266ff4'), '2024-10-27');
+INSERT INTO waterside.bunkering_operations(id, shipping_order_id, planned_date) VALUES (UUID_TO_BIN('b72f64a7-ebde-4d8d-b74a-66cbfbd07334'), UUID_TO_BIN('bbf72f41-8107-48f9-99fd-dad4859faa83'), '2024-10-27');
+INSERT INTO waterside.bunkering_operations(id, shipping_order_id, planned_date) VALUES (UUID_TO_BIN('a4f5b13d-3cc9-4fe8-af65-63743e4eb9fe '), UUID_TO_BIN('c7e273e1-fd32-4fb5-97b0-a6f2d953c2de'), '2024-10-27');
+INSERT INTO waterside.bunkering_operations(id, shipping_order_id, planned_date) VALUES (UUID_TO_BIN('6454bf9d-75e5-4051-9b3b-9a945c5436f3'), UUID_TO_BIN('1a6ba30b-a762-442f-bc72-2f79ca375e17'), '2024-10-27');

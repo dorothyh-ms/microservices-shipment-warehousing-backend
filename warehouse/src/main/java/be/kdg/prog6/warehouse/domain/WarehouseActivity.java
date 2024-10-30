@@ -1,9 +1,9 @@
 package be.kdg.prog6.warehouse.domain;
 
-import be.kdg.prog6.common.events.WarehouseActivityType;
-import main.java.be.kdg.prog6.warehouse.domain.Material;
+import be.kdg.prog6.common.domain.Material;
+import be.kdg.prog6.common.domain.WarehouseActivityType;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public record WarehouseActivity(WarehouseActivityType action, Material material, double amountTons, LocalDateTime activityDate) {
 

@@ -1,6 +1,7 @@
 package be.kdg.prog6.landside.domain;
 
-import be.kdg.prog6.common.events.WarehouseActivityType;
+import be.kdg.prog6.common.domain.Material;
+import be.kdg.prog6.common.domain.WarehouseActivityType;
 
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ public class Warehouse {
 
     private UUID sellerId;
 
-    private UUID materialID;
+    private Material material;
 
     private double currentTons;
 
@@ -23,10 +24,10 @@ public class Warehouse {
 
     private double yCoord;
 
-    public Warehouse(UUID id, UUID sellerId, UUID materialID, double currentTons, double xCoord, double yCoord) {
+    public Warehouse(UUID id, UUID sellerId, Material material, double currentTons, double xCoord, double yCoord) {
         this.id = id;
         this.sellerId = sellerId;
-        this.materialID = materialID;
+        this.material = material;
         this.currentTons = currentTons;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
@@ -57,12 +58,12 @@ public class Warehouse {
         this.sellerId = sellerId;
     }
 
-    public UUID getMaterialID() {
-        return materialID;
+    public Material getMaterial() {
+        return material;
     }
 
-    public void setMaterialID(UUID materialID) {
-        this.materialID = materialID;
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
     public double getCurrentTons() {
@@ -74,8 +75,8 @@ public class Warehouse {
     }
 
 
-    public boolean isAvailable(UUID materialID){
-        boolean materialMatchedOrNothingStored = (this.materialID == null) || (this.materialID.equals(materialID));
+    public boolean isAvailable(Material material){
+        boolean materialMatchedOrNothingStored = (this.material == null) || (this.material.equals(material));
         return (currentTons < MAX_CAPACITY_TONS*0.8) && materialMatchedOrNothingStored;
     }
 
@@ -108,7 +109,7 @@ public class Warehouse {
         return "Warehouse{" +
                 "id=" + id +
                 ", sellerId=" + sellerId +
-                ", materialID=" + materialID +
+                ", material=" + material +
                 ", currentTons=" + currentTons +
                 ", xCoord=" + xCoord +
                 ", yCoord=" + yCoord +

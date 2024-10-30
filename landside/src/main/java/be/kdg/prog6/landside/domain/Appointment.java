@@ -1,5 +1,7 @@
 package be.kdg.prog6.landside.domain;
 
+import be.kdg.prog6.common.domain.Material;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -7,7 +9,7 @@ public class Appointment {
 
     private UUID id;
 
-    private UUID materialUUID;
+    private Material material;
 
     private String truckLicensePlate;
 
@@ -28,8 +30,8 @@ public class Appointment {
         this.truckLicensePlate = truckLicensePlate;
     }
 
-    public Appointment(UUID materialUUID, String truckLicensePlate, LocalDateTime timeSlotStart, Warehouse warehouse, double amountTons) {
-        this.materialUUID = materialUUID;
+    public Appointment(Material material, String truckLicensePlate, LocalDateTime timeSlotStart, Warehouse warehouse, double amountTons) {
+        this.material = material;
         this.truckLicensePlate = truckLicensePlate;
         this.timeSlotStart = timeSlotStart;
         this.status = AppointmentStatus.CREATED;
@@ -37,9 +39,9 @@ public class Appointment {
         this.amountTons = amountTons;
     }
 
-    public Appointment(UUID id, UUID materialUUID, String truckLicensePlate, LocalDateTime timeSlotStart, AppointmentStatus status, Warehouse warehouse) {
+    public Appointment(UUID id, Material material, String truckLicensePlate, LocalDateTime timeSlotStart, AppointmentStatus status, Warehouse warehouse) {
         this.id = id;
-        this.materialUUID = materialUUID;
+        this.material= material;
         this.truckLicensePlate = truckLicensePlate;
         this.timeSlotStart = timeSlotStart;
         this.status = status;
@@ -57,12 +59,8 @@ public class Appointment {
     }
 
 
-    public UUID getMaterialUUID() {
-        return materialUUID;
-    }
-
-    public void setMaterialUUID(UUID materialUUID) {
-        this.materialUUID = materialUUID;
+    public Material getMaterial() {
+        return material;
     }
 
     public String getTruckLicensePlate() {
@@ -113,7 +111,7 @@ public class Appointment {
     public String toString() {
         return "Appointment{" +
                 "id=" + id +
-                ", materialUUID=" + materialUUID +
+                ", material=" + material +
                 ", truckLicensePlate='" + truckLicensePlate + '\'' +
                 ", amountTons=" + amountTons +
                 ", timeSlotStart=" + timeSlotStart +

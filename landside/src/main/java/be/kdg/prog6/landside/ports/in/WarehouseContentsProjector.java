@@ -1,9 +1,7 @@
 package be.kdg.prog6.landside.ports.in;
 
-import be.kdg.prog6.common.events.WarehouseActivityType;
-import be.kdg.prog6.landside.domain.Warehouse;
+import be.kdg.prog6.common.domain.WarehouseActivityType;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public interface WarehouseContentsProjector {

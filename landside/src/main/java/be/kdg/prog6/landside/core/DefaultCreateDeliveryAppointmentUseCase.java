@@ -35,7 +35,7 @@ public class DefaultCreateDeliveryAppointmentUseCase implements CreateDeliveryAp
         List<Warehouse> warehouses = warehouseLoadPort.loadWarehousesBySellerId(createDeliveryAppointmentCommand.sellerUUID());
         Optional<Warehouse> assignedWarehouse = warehouses
                 .stream()
-                .filter(warehouse -> warehouse.isAvailable(createDeliveryAppointmentCommand.materialUUID()))
+                .filter(warehouse -> warehouse.isAvailable(createDeliveryAppointmentCommand.material()))
                 .findFirst();
         if (assignedWarehouse.isEmpty()){
             throw new NoWarehouseAvailableException("All warehouses are at capacity or cannot store the requested delivery material");
@@ -45,7 +45,7 @@ public class DefaultCreateDeliveryAppointmentUseCase implements CreateDeliveryAp
 
         // handle appointment creation
         Optional<Appointment> createdAppointment = Calendar.instance().bookDeliveryAppointment(
-                createDeliveryAppointmentCommand.materialUUID(),
+                createDeliveryAppointmentCommand.material(),
                 createDeliveryAppointmentCommand.truckLicensePlate(),
                 createDeliveryAppointmentCommand.amountTons(),
                 createDeliveryAppointmentCommand.slotStartTime().truncatedTo(ChronoUnit.HOURS),

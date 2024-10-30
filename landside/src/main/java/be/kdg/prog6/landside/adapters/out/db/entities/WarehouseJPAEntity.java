@@ -1,6 +1,7 @@
 package be.kdg.prog6.landside.adapters.out.db.entities;
 
 
+import be.kdg.prog6.common.domain.Material;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -17,8 +18,8 @@ public class WarehouseJPAEntity {
     @Column(name="seller_id", nullable = true)
     UUID sellerId;
 
-    @Column(name="material_id", nullable = true)
-    UUID materialId;
+    @Enumerated(EnumType.STRING)
+    Material material;
 
     @Column(name="current_tons")
     double currentTons;
@@ -47,7 +48,6 @@ public class WarehouseJPAEntity {
         return "WarehouseJPAEntity{" +
                 "id=" + id +
                 ", sellerId=" + sellerId +
-                ", materialId=" + materialId +
                 ", currentTons=" + currentTons +
                 '}';
     }
@@ -68,12 +68,12 @@ public class WarehouseJPAEntity {
         this.sellerId = sellerId;
     }
 
-    public UUID getMaterialId() {
-        return materialId;
+    public Material getMaterial() {
+        return material;
     }
 
-    public void setMaterialId(UUID materialId) {
-        this.materialId = materialId;
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
     public double getCurrentTons() {

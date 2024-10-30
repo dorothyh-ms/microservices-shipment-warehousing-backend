@@ -1,13 +1,12 @@
 package be.kdg.prog6.landside.core;
 
-import be.kdg.prog6.common.events.WarehouseActivityType;
+import be.kdg.prog6.common.domain.WarehouseActivityType;
 import be.kdg.prog6.landside.domain.Warehouse;
 import be.kdg.prog6.landside.ports.in.WarehouseContentsProjector;
 import be.kdg.prog6.landside.ports.out.UpdateWarehousePort;
 import be.kdg.prog6.landside.ports.out.WarehouseLoadPort;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
