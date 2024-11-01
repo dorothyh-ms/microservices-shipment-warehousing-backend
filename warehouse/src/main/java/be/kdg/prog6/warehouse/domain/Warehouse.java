@@ -145,4 +145,8 @@ public class Warehouse {
                 ", deliveries=" + deliveries +
                 '}';
     }
+
+    public double getCurrentTons() {
+        return baseAmountTons + (activityWindow.calculateCurrentAmount());
+    }
 }

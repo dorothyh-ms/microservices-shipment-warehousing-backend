@@ -52,12 +52,11 @@ public class AppointmentController {
         )).toList(), HttpStatus.OK);
     }
 
-    @PatchMapping("/{appointmentId}")
+    @PatchMapping("/{appointmentId}/time")
     public void updateAppointment(
             @PathVariable UUID appointmentId, @RequestBody UpdateAppointmentDto updateAppointmentDto) {
         LOGGER.info("AppointmentController is running updateAppointment");
         changeAppointmentTimeslotUseCase.changeAppointmentTimeslot(appointmentId, updateAppointmentDto.getTimeSlot());
-
     }
 
     @PostMapping

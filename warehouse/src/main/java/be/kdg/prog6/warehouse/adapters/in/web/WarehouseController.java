@@ -3,6 +3,8 @@ package be.kdg.prog6.warehouse.adapters.in.web;
 import be.kdg.prog6.warehouse.adapters.in.web.dtos.WarehouseActivityDto;
 import be.kdg.prog6.warehouse.adapters.in.web.dtos.WarehouseDto;
 import be.kdg.prog6.warehouse.ports.in.GetWarehouseUseCase;
+import be.kdg.prog6.warehouse.ports.in.WarehouseCurrentAmountCommand;
+import be.kdg.prog6.warehouse.ports.in.WarehouseCurrentAmountQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,9 +24,12 @@ public class WarehouseController {
 
     private final GetWarehouseUseCase getWarehouseUseCase;
     private static final Logger LOGGER = LoggerFactory.getLogger(WarehouseController.class);
+    private final WarehouseCurrentAmountQuery warehouseCurrentAmountQuery;
 
-    public WarehouseController(GetWarehouseUseCase getWarehouseUseCase) {
+
+    public WarehouseController(GetWarehouseUseCase getWarehouseUseCase, WarehouseCurrentAmountQuery warehouseCurrentAmountQuery) {
         this.getWarehouseUseCase = getWarehouseUseCase;
+        this.warehouseCurrentAmountQuery = warehouseCurrentAmountQuery;
     }
 
     @GetMapping("/{warehouseId}")
@@ -45,6 +50,12 @@ public class WarehouseController {
                         .toList()
         ), HttpStatus.OK);
     }
+
+    @GetMapping("/{warehouseId}/contents")
+    public double getAmountTons(@PathVariable UUID warehouseId) {
+        return warehouseCurrentAmountQuery.getCurrentAmountQuery(new WarehouseCurrentAmountCommand(warehouseId));
+    }
+
 
 
 }
