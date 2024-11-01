@@ -15,7 +15,7 @@ Accept:application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "timeSlot":  "2024-10-31 17:30:34",
+  "timeSlot":  "2024-11-01 11:30:34",
   "truckLicensePlate":  "kd-kldfjkd-klk",
   "amountTons":  10.0,
   "material": "CEMENT",

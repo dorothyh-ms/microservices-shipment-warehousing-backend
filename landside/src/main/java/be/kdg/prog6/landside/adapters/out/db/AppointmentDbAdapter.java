@@ -141,8 +141,10 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, AppointmentL
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getYCoord()
                     ),
                     deliveryAppointmentJPAEntity.getAmountTons()
+
             );
             appointment.setId(deliveryAppointmentJPAEntity.getId());
+            appointment.setStatus(deliveryAppointmentJPAEntity.getStatus());
             return appointment;
         }).toList();
     }

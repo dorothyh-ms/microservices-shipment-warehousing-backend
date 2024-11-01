@@ -108,6 +108,14 @@ public class Appointment {
         this.status = AppointmentStatus.IN_PROGRESS;
     }
 
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    public void setStatus(AppointmentStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Appointment{" +
