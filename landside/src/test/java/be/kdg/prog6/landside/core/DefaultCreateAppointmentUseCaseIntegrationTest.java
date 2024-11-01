@@ -1,29 +1,19 @@
 package be.kdg.prog6.landside.core;
 
 import be.kdg.prog6.landside.adapters.out.db.SpringDataAppointmentRepository;
-import be.kdg.prog6.landside.adapters.out.db.SpringDataSellerRepository;
+import be.kdg.prog6.landside.adapters.out.db.SpringDataLandsideSellerRepository;
 import be.kdg.prog6.landside.adapters.out.db.SpringDataWarehouseProjectionRepository;
 import be.kdg.prog6.landside.adapters.out.db.entities.DeliveryAppointmentJPAEntity;
 import be.kdg.prog6.landside.adapters.out.db.entities.SellerJpa;
 import be.kdg.prog6.landside.adapters.out.db.entities.WarehouseJPAEntity;
-import be.kdg.prog6.landside.domain.Seller;
 import be.kdg.prog6.landside.ports.in.CreateDeliveryAppointmentUseCase;
 import be.kdg.prog6.landside.ports.in.commands.CreateDeliveryAppointmentCommand;
-import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static be.kdg.prog6.landside.core.TestValues.*;
@@ -43,13 +33,16 @@ public class DefaultCreateAppointmentUseCaseIntegrationTest extends AbstractData
     private SpringDataWarehouseProjectionRepository warehouseProjectionRepository;
 
     @Autowired
-    private SpringDataSellerRepository sellerRepository;
+    private SpringDataLandsideSellerRepository sellerRepository;
 
-    @BeforeEach
-    public void setup() {
+
+
+    @Test
+    void shouldCreateAppointment() {
+
         // Arrange
         SellerJpa seller = new SellerJpa(SELLER_ID, SELLER_NAME);
-        sellerRepository.save(seller);
+        seller =sellerRepository.save(seller);
         WarehouseJPAEntity warehouseJPAEntity = new WarehouseJPAEntity(
                 WAREHOUSE.getId(),
                 seller,
@@ -62,12 +55,6 @@ public class DefaultCreateAppointmentUseCaseIntegrationTest extends AbstractData
         warehouseJPAEntity.setSeller(seller);
 
         warehouseProjectionRepository.save(warehouseJPAEntity);
-
-    }
-
-    @Test
-    void shouldCreateAppointment() {
-
 
 
         // Act
