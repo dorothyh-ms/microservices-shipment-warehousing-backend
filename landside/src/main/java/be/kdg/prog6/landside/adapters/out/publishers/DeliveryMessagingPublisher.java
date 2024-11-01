@@ -8,9 +8,11 @@ import be.kdg.prog6.landside.ports.out.PayloadDeliveredPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("!test")
 public class DeliveryMessagingPublisher implements PayloadDeliveredPort {
     private static final Logger LOGGER = LoggerFactory.getLogger(DeliveryMessagingPublisher.class);
     private static final String EXCHANGE_NAME = "landside_deliveries";
@@ -26,7 +28,7 @@ public class DeliveryMessagingPublisher implements PayloadDeliveredPort {
         LOGGER.info("Publishing weighbridge transaction {}", weighBridgeTransaction);
         rabbitTemplate.convertAndSend(EXCHANGE_NAME, routingKey, new WeighbridgeDepartureEvent(
                 weighBridgeTransaction.getAppointment().getMaterial(),
-                weighBridgeTransaction.getAppointment().getWarehouse().getSellerId(),
+                weighBridgeTransaction.getAppointment().getWarehouse().getSeller().getId(),
                 weighBridgeTransaction.getAppointment().getWarehouse().getId(),
                 weighBridgeTransaction.getWeightOut().weighDateTime(),
                 weighBridgeTransaction.getWeightIn().weightTons() - weighBridgeTransaction.getWeightOut().weightTons()

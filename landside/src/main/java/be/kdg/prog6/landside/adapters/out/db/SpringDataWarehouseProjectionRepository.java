@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface SpringDataWarehouseProjectionRepository extends JpaRepository<WarehouseJPAEntity, UUID> {
 
-    List<WarehouseJPAEntity> findWarehouseJPAEntitiesBySellerId(UUID sellerId);
+    List<WarehouseJPAEntity> findWarehouseJPAEntitiesBySeller_Name(String sellerName);
 }

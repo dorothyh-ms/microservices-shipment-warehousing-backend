@@ -7,4 +7,6 @@ import java.util.UUID;
 
 public interface ShippingOrderLoadPort {
     public Optional<ShippingOrder> loadShippingOrder(UUID shippingOrderId);
+
+    public Optional<ShippingOrder> loadShippingOrderByPurchaseOrderNumber(String purchaseOrderNumber);
 }

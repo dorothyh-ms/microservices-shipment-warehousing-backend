@@ -4,6 +4,8 @@ import be.kdg.prog6.warehouse.domain.PurchaseOrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +31,9 @@ public class PurchaseOrderJpaEntity {
     private String vesselNumber;
 
     private String buyerEnterpriseNumber;
+
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<PurchaseOrderLineJpaEntity> orderLines = new ArrayList<>();
 
 
 
@@ -75,5 +80,13 @@ public class PurchaseOrderJpaEntity {
 
     public void setBuyerEnterpriseNumber(String buyerEnterpriseNumber) {
         this.buyerEnterpriseNumber = buyerEnterpriseNumber;
+    }
+
+    public void setOrderLines(List<PurchaseOrderLineJpaEntity> orderLines) {
+        this.orderLines = orderLines;
+    }
+
+    public List<PurchaseOrderLineJpaEntity> getOrderLines() {
+        return orderLines;
     }
 }

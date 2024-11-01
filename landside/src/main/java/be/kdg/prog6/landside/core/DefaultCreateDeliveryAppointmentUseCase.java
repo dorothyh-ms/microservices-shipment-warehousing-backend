@@ -1,6 +1,7 @@
 package be.kdg.prog6.landside.core;
 
 
+import be.kdg.prog6.landside.adapters.in.web.AppointmentController;
 import be.kdg.prog6.landside.domain.Appointment;
 import be.kdg.prog6.landside.domain.Calendar;
 import be.kdg.prog6.landside.domain.Warehouse;
@@ -10,6 +11,8 @@ import be.kdg.prog6.landside.ports.in.CreateDeliveryAppointmentUseCase;
 import be.kdg.prog6.landside.ports.out.AppointmentBookedPort;
 
 import be.kdg.prog6.landside.ports.out.WarehouseLoadPort;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +23,7 @@ import java.util.Optional;
 @Service
 public class DefaultCreateDeliveryAppointmentUseCase implements CreateDeliveryAppointmentUseCase {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultCreateDeliveryAppointmentUseCase.class);
     private final AppointmentBookedPort appointmentBookedPort;
     private final WarehouseLoadPort warehouseLoadPort;
 
@@ -30,9 +34,10 @@ public class DefaultCreateDeliveryAppointmentUseCase implements CreateDeliveryAp
 
     @Override
     @Transactional
-    public boolean createAppointment(CreateDeliveryAppointmentCommand createDeliveryAppointmentCommand) {
+    public Appointment createAppointment(CreateDeliveryAppointmentCommand createDeliveryAppointmentCommand) {
+        LOGGER.info("DefaultCreateDeliveryAppointmentUseCase is running createAppointment with command {}", createDeliveryAppointmentCommand);
         // Check if a warehouse is available
-        List<Warehouse> warehouses = warehouseLoadPort.loadWarehousesBySellerId(createDeliveryAppointmentCommand.sellerUUID());
+        List<Warehouse> warehouses = warehouseLoadPort.loadWarehousesBySellerName(createDeliveryAppointmentCommand.sellerName());
         Optional<Warehouse> assignedWarehouse = warehouses
                 .stream()
                 .filter(warehouse -> warehouse.isAvailable(createDeliveryAppointmentCommand.material()))
@@ -53,9 +58,11 @@ public class DefaultCreateDeliveryAppointmentUseCase implements CreateDeliveryAp
                 );
 
         if (createdAppointment.isPresent()){
-            appointmentBookedPort.appointmentBooked(createdAppointment.get());
+            Appointment appointment = createdAppointment.get();
+            appointmentBookedPort.appointmentBooked(appointment);
+            return appointment;
         }
-        return createdAppointment.isPresent();
+        return null;
 
     }
 }

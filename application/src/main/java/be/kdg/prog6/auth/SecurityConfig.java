@@ -26,13 +26,14 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
+
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/appointments/**","PATCH").permitAll()  // Allow PATCH requests change specific appt
+                        .requestMatchers("/appointments/**").permitAll()  // Allow PATCH requests change specific appt
                         .requestMatchers("/weighbridges/**").permitAll()
                         .requestMatchers("/shipping-orders/**").permitAll()
                         .requestMatchers("/inspection-operations/**").permitAll()

@@ -16,6 +16,6 @@ Authorization: Bearer {{access_token}}
 
 ###
 
-GET http://localhost:8090/api/purchase-orders
+GET http://localhost:8090/api/purchase-orders?status=OUTSTANDING&sellerName=test_seller1
 Accept:application/json
 Authorization: Bearer {{access_token}}

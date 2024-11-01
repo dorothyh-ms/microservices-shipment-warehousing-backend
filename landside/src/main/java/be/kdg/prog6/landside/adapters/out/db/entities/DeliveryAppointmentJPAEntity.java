@@ -58,17 +58,8 @@ public class DeliveryAppointmentJPAEntity {
         this.amountTons = amountTons;
     }
 
-    public DeliveryAppointmentJPAEntity(Material material, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse, double amountTons) {
-        this.material = material;
-        this.truckLicensePlate = truckLicensePlate;
-        this.date = date;
-        this.hour = hour;
-        this.status = status;
-        this.assignedWarehouse= assignedWarehouse;
-        this.amountTons = amountTons;
-    }
 
-    public DeliveryAppointmentJPAEntity(UUID id, Material material, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse) {
+    public DeliveryAppointmentJPAEntity(UUID id, Material material, String truckLicensePlate, LocalDate date, int hour, AppointmentStatus status, WarehouseJPAEntity assignedWarehouse, double amountTons) {
         this.id = id;
         this.material =material;
         this.truckLicensePlate = truckLicensePlate;
@@ -76,6 +67,7 @@ public class DeliveryAppointmentJPAEntity {
         this.hour = hour;
         this.status = status;
         this.assignedWarehouse= assignedWarehouse;
+        this.amountTons = amountTons;
     }
 
     public UUID getSellerUUID() {

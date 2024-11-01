@@ -8,21 +8,21 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PurchaseOrderListener {
+public class NewPurchaseOrderListener {
 
     private final CreatePurchaseOrderUseCase createPurchaseOrderUseCase;
-    private static final String PURCHASE_ORDER_QUEUE = "created_purchase_orders_queue";
+    private static final String PURCHASE_ORDER_QUEUE = "create_purchase_orders_queue";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PurchaseOrderListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewPurchaseOrderListener.class);
 
-    public PurchaseOrderListener(CreatePurchaseOrderUseCase createPurchaseOrderUseCase) {
+    public NewPurchaseOrderListener(CreatePurchaseOrderUseCase createPurchaseOrderUseCase) {
         this.createPurchaseOrderUseCase = createPurchaseOrderUseCase;
     }
 
 
     @RabbitListener(queues = PURCHASE_ORDER_QUEUE)
     public void createPurchaseOrder(CreatePurchaseOrderCommand command){
-        LOGGER.info("PurchaseOrderListener is running createPurchaseOrder with command {}", command);
+        LOGGER.info("NewPurchaseOrderListener is running createPurchaseOrder with command {}", command);
         createPurchaseOrderUseCase.createPurchaseOrder(command);
     }
 }

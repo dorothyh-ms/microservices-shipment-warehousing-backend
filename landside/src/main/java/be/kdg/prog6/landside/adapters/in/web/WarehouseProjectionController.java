@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,9 +30,10 @@ public class WarehouseProjectionController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('warehouse_manager')")
-    public ResponseEntity<List<WarehouseProjectionDto>> getWarehouses(@AuthenticationPrincipal Jwt token) {
+    public ResponseEntity<List<WarehouseProjectionDto>> getWarehouses(@AuthenticationPrincipal Jwt token,
+                                                                      @RequestParam(required = false) String sellerName) {
         LOGGER.info("WarehouseProjectionController is running getWarehouses");
-        var warehouses = getWarehousesUseCase.getWarehouses();
+        var warehouses = getWarehousesUseCase.getWarehouses(sellerName);
         LOGGER.info("WarehouseProjectionController call getWarehouses returning {}", warehouses);
         return new ResponseEntity<>(
                 warehouses.stream().map(
@@ -43,7 +45,9 @@ public class WarehouseProjectionController {
                                 Warehouse.WIDTH_METERS,
                                 Warehouse.LENGTH_METERS,
                                 Warehouse.MAX_CAPACITY_TONS,
-                                warehouse.getMaterial()
+                                warehouse.getMaterial(),
+                                warehouse.getSeller().getId(),
+                                warehouse.getSeller().getName()
                         )
                 ).toList(),
                 HttpStatus.OK

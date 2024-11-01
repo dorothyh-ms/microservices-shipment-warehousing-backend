@@ -8,13 +8,13 @@ import java.util.UUID;
 public class Warehouse {
 
     public static final double MAX_CAPACITY_TONS = 500000;
-    public static final double LENGTH_METERS = 80;
+    public static final double LENGTH_METERS = 150;
 
-    public static final double WIDTH_METERS = 30;
+    public static final double WIDTH_METERS = 150;
 
     private UUID id;
 
-    private UUID sellerId;
+    private Seller seller;
 
     private Material material;
 
@@ -24,9 +24,9 @@ public class Warehouse {
 
     private double yCoord;
 
-    public Warehouse(UUID id, UUID sellerId, Material material, double currentTons, double xCoord, double yCoord) {
+    public Warehouse(UUID id, Seller seller, Material material, double currentTons, double xCoord, double yCoord) {
         this.id = id;
-        this.sellerId = sellerId;
+        this.seller = seller;
         this.material = material;
         this.currentTons = currentTons;
         this.xCoord = xCoord;
@@ -38,8 +38,8 @@ public class Warehouse {
         this.currentTons = amountTons;
     }
 
-    public Warehouse(UUID sellerId) {
-        this.sellerId = sellerId;
+    public Warehouse(Seller seller) {
+        this.seller = seller;
     }
 
     public UUID getId() {
@@ -50,13 +50,7 @@ public class Warehouse {
         this.id = id;
     }
 
-    public UUID getSellerId() {
-        return sellerId;
-    }
 
-    public void setSellerId(UUID sellerId) {
-        this.sellerId = sellerId;
-    }
 
     public Material getMaterial() {
         return material;
@@ -104,11 +98,18 @@ public class Warehouse {
         this.yCoord = yCoord;
     }
 
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
     @Override
     public String toString() {
         return "Warehouse{" +
                 "id=" + id +
-                ", sellerId=" + sellerId +
                 ", material=" + material +
                 ", currentTons=" + currentTons +
                 ", xCoord=" + xCoord +

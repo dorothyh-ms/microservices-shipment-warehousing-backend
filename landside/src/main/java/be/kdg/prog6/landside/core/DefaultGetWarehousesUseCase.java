@@ -19,8 +19,8 @@ public class DefaultGetWarehousesUseCase implements GetWarehousesUseCase {
     }
 
     @Override
-    public List<Warehouse> getWarehouses() {
+    public List<Warehouse> getWarehouses(String sellerName) {
         LOGGER.info("DefaultGetWarehousesUseCase is running getWarehouses");
-        return warehouseLoadPort.loadWarehouses();
+        return warehouseLoadPort.loadWarehouses(sellerName);
     }
 }

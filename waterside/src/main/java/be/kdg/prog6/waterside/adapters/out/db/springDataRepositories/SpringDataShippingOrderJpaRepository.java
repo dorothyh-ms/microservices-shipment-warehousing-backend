@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface SpringDataShippingOrderJpaRepository extends JpaRepository<ShippingOrderJpaEntity, UUID> {
     Optional<ShippingOrderJpaEntity> findByShippingOrderNo(String shippingOrderNumber);
+
+    Optional<ShippingOrderJpaEntity> findByPurchaseOrderNo(String purchaseOrderNo);
 }

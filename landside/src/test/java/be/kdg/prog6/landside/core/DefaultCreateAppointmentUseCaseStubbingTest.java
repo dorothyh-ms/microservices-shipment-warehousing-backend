@@ -31,23 +31,24 @@ public class DefaultCreateAppointmentUseCaseStubbingTest {
 
     @Test
     void shouldCreateAppointment() {
-        sut.createAppointment(new CreateDeliveryAppointmentCommand(SELLER_ID, MATERIAL_ID, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
+        sut.createAppointment(new CreateDeliveryAppointmentCommand(SELLER_NAME, MATERIAL, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
         assertEquals(AMOUNT_TONS, appointmentBookedPortStub.getAppointment().getAmountTons() );
-        assertEquals(MATERIAL_ID, appointmentBookedPortStub.getAppointment().getMaterialUUID());
+        assertEquals(MATERIAL, appointmentBookedPortStub.getAppointment().getMaterial());
         assertEquals(APPOINTMENT_TIME.getHour(), appointmentBookedPortStub.getAppointment().getTimeSlotStart().getHour());
         assertEquals(APPOINTMENT_TIME.toLocalDate(), appointmentBookedPortStub.getAppointment().getTimeSlotStart().toLocalDate());
         assertEquals(LICENSE_PLATE, appointmentBookedPortStub.getAppointment().getTruckLicensePlate());
-        assertEquals(SELLER_ID, appointmentBookedPortStub.getAppointment().getWarehouse().getSellerId());
+        assertEquals(SELLER_NAME, appointmentBookedPortStub.getAppointment().getWarehouse().getSeller().getName());
         assertEquals(AMOUNT_TONS, appointmentBookedPortStub.getAppointment().getAmountTons());
     }
 
     @Test
     void createAppointmentShouldFailWithNonExistentSeller(){
 
+        String sellerName = "nonexistentseller";
         //Assert
         assertThrows(NoWarehouseAvailableException.class, () -> {
             // Act
-            sut.createAppointment(new CreateDeliveryAppointmentCommand(UUID.randomUUID(), MATERIAL_ID, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
+            sut.createAppointment(new CreateDeliveryAppointmentCommand(sellerName, MATERIAL, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
 
         });
     }

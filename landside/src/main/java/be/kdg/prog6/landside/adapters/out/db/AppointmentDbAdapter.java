@@ -4,18 +4,24 @@ import be.kdg.prog6.landside.adapters.out.db.entities.DeliveryAppointmentJPAEnti
 import be.kdg.prog6.landside.adapters.out.db.entities.WarehouseJPAEntity;
 import be.kdg.prog6.landside.domain.Appointment;
 import be.kdg.prog6.landside.domain.AppointmentStatus;
+import be.kdg.prog6.landside.domain.Seller;
 import be.kdg.prog6.landside.domain.Warehouse;
-import be.kdg.prog6.landside.ports.out.DeliveryAppointmentLoadPort;
+import be.kdg.prog6.landside.ports.out.AppointmentLoadPort;
 import be.kdg.prog6.landside.ports.out.AppointmentBookedPort;
+import be.kdg.prog6.landside.ports.out.AppointmentUpdatePort;
 import be.kdg.prog6.landside.ports.out.TruckArrivedForDeliveryAppointmentPort;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppointmentLoadPort, TruckArrivedForDeliveryAppointmentPort {
+public class AppointmentDbAdapter implements AppointmentBookedPort, AppointmentLoadPort, TruckArrivedForDeliveryAppointmentPort, AppointmentUpdatePort {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppointmentDbAdapter.class);
     private final SpringDataAppointmentRepository appointmentRepository;
     private final SpringDataWarehouseProjectionRepository warehouseRepository;
 
@@ -24,26 +30,32 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
         this.warehouseRepository = warehouseRepository;
     }
 
-    @Override
-    public void appointmentBooked(Appointment appointment) {
+    private void saveAppointment(Appointment appointment) {
         Optional<WarehouseJPAEntity> warehouseJPAEntity = warehouseRepository.findById(appointment.getWarehouse().getId());
         appointmentRepository.save(new DeliveryAppointmentJPAEntity(
-                appointment.getMaterial(),
-                appointment.getTruckLicensePlate(),
-                appointment.getTimeSlotStart().toLocalDate(),
-                appointment.getTimeSlotStart().getHour(),
-                appointment.getStatus(),
-                warehouseJPAEntity.get(),
-                appointment.getAmountTons()
-        ));
+                        appointment.getId(),
+                        appointment.getMaterial(),
+                        appointment.getTruckLicensePlate(),
+                        appointment.getTimeSlotStart().toLocalDate(),
+                        appointment.getTimeSlotStart().getHour(),
+                        appointment.getStatus(),
+                        warehouseJPAEntity.get(),
+                        appointment.getAmountTons()
+                )
+        );
+    }
 
+    @Override
+    public void appointmentBooked(Appointment appointment) {
+        LOGGER.info("AppointmentDbAdapter is running appointmentBooked");
+        saveAppointment(appointment);
     }
 
     @Override
     public Optional<Appointment> loadAppointmentByLicensePlateAndArrivalTime(String licensePlate, LocalDateTime arrivalTime) {
         System.out.println(licensePlate);
         Optional<DeliveryAppointmentJPAEntity> appointmentJPAEntityOptional = appointmentRepository.findFirstByTruckLicensePlateAndDateAndHour(licensePlate, arrivalTime.toLocalDate(), arrivalTime.getHour());
-        if (appointmentJPAEntityOptional.isPresent()){
+        if (appointmentJPAEntityOptional.isPresent()) {
             DeliveryAppointmentJPAEntity deliveryAppointmentJPAEntity = appointmentJPAEntityOptional.get();
             Appointment appointment = new Appointment(
                     deliveryAppointmentJPAEntity.getMaterial(),
@@ -51,7 +63,10 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
                     deliveryAppointmentJPAEntity.getDate().atTime(deliveryAppointmentJPAEntity.getHour(), 0),
                     new Warehouse(
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getId(),
-                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getSellerId(),
+                            new Seller(
+                                    deliveryAppointmentJPAEntity.getAssignedWarehouse().getSeller().getId(),
+                                    deliveryAppointmentJPAEntity.getAssignedWarehouse().getSeller().getName()
+                            ),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterial(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getXCoord(),
@@ -69,7 +84,7 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
     public Optional<Appointment> loadAppointmentInProgressByLicensePlate(String licensePlate) {
         System.out.println("Loading real appointment");
         Optional<DeliveryAppointmentJPAEntity> appointmentJPAEntityOptional = appointmentRepository.findFirstByTruckLicensePlateAndStatusOrderByDateDescHour(licensePlate, AppointmentStatus.IN_PROGRESS);
-        if (appointmentJPAEntityOptional.isPresent()){
+        if (appointmentJPAEntityOptional.isPresent()) {
             DeliveryAppointmentJPAEntity deliveryAppointmentJPAEntity = appointmentJPAEntityOptional.get();
             Appointment appointment = new Appointment(
                     deliveryAppointmentJPAEntity.getMaterial(),
@@ -77,7 +92,10 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
                     deliveryAppointmentJPAEntity.getDate().atTime(deliveryAppointmentJPAEntity.getHour(), 0),
                     new Warehouse(
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getId(),
-                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getSellerId(),
+                            new Seller(
+                                    deliveryAppointmentJPAEntity.getAssignedWarehouse().getSeller().getId(),
+                                    deliveryAppointmentJPAEntity.getAssignedWarehouse().getSeller().getName()
+                            ),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterial(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
                             deliveryAppointmentJPAEntity.getAssignedWarehouse().getXCoord(),
@@ -97,5 +115,35 @@ public class AppointmentDbAdapter implements AppointmentBookedPort, DeliveryAppo
         DeliveryAppointmentJPAEntity appointmentJPAEntity = appointmentJPAEntityOptional.get();
         appointmentJPAEntity.setStatus(appointment.getStatus());
         appointmentRepository.save(appointmentJPAEntity);
+    }
+
+    @Override
+    public void updateAppointment(Appointment appointment) {
+        saveAppointment(appointment);
+    }
+
+    @Override
+    public List<Appointment> loadAppointments() {
+        return appointmentRepository.findAll().stream().map(deliveryAppointmentJPAEntity -> {
+            Appointment appointment = new Appointment(
+                    deliveryAppointmentJPAEntity.getMaterial(),
+                    deliveryAppointmentJPAEntity.getTruckLicensePlate(),
+                    deliveryAppointmentJPAEntity.getDate().atTime(deliveryAppointmentJPAEntity.getHour(), 0),
+                    new Warehouse(
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getId(),
+                            new Seller(
+                                    deliveryAppointmentJPAEntity.getAssignedWarehouse().getSeller().getId(),
+                                    deliveryAppointmentJPAEntity.getAssignedWarehouse().getSeller().getName()
+                            ),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getMaterial(),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getXCoord(),
+                            deliveryAppointmentJPAEntity.getAssignedWarehouse().getYCoord()
+                    ),
+                    deliveryAppointmentJPAEntity.getAmountTons()
+            );
+            appointment.setId(deliveryAppointmentJPAEntity.getId());
+            return appointment;
+        }).toList();
     }
 }

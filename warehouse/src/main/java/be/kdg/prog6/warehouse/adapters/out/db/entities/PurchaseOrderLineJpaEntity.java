@@ -12,26 +12,24 @@ public class PurchaseOrderLineJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @ManyToOne
-    @JoinColumn(name="purchase_order_id", nullable=false)
-    private PurchaseOrderJpaEntity purchaseOrder;
+
+
 
 
     private Material material;
 
     private double amountTons;
+    @ManyToOne
+    @JoinColumn(name="purchase_order_id", nullable=false)
+    private PurchaseOrderJpaEntity purchaseOrder;
 
     public PurchaseOrderLineJpaEntity() {
     }
 
-    public PurchaseOrderLineJpaEntity(PurchaseOrderJpaEntity purchaseOrder, Material material, double amountTons) {
-        this.purchaseOrder = purchaseOrder;
+    public PurchaseOrderLineJpaEntity(Material material, double amountTons, PurchaseOrderJpaEntity purchaseOrder) {
         this.material = material;
         this.amountTons = amountTons;
-    }
-
-    public PurchaseOrderJpaEntity getPurchaseOrder() {
-        return purchaseOrder;
+        this.purchaseOrder = purchaseOrder;
     }
 
     public Material getMaterial() {

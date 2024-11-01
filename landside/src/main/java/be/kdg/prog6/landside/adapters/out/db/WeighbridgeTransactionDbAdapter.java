@@ -55,7 +55,10 @@ public class WeighbridgeTransactionDbAdapter implements WeighbridgeTransactionSt
                 appointmentJPAEntity.getStatus(),
                         new Warehouse(
                                 appointmentJPAEntity.getAssignedWarehouse().getId(),
-                                appointmentJPAEntity.getAssignedWarehouse().getSellerId(),
+                                new Seller(
+                                        appointmentJPAEntity.getAssignedWarehouse().getSeller().getId(),
+                                        appointmentJPAEntity.getAssignedWarehouse().getSeller().getName()
+                                ),
                                 appointmentJPAEntity.getAssignedWarehouse().getMaterial(),
                                 appointmentJPAEntity.getAssignedWarehouse().getCurrentTons(),
                                 appointmentJPAEntity.getAssignedWarehouse().getXCoord(),

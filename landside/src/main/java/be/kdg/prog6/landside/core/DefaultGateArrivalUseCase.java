@@ -4,7 +4,7 @@ import be.kdg.prog6.landside.domain.Appointment;
 import be.kdg.prog6.landside.exceptions.AppointmentNotFoundException;
 import be.kdg.prog6.landside.ports.in.GateArrivalUseCase;
 import be.kdg.prog6.landside.ports.in.commands.ScanLicensePlateCommand;
-import be.kdg.prog6.landside.ports.out.DeliveryAppointmentLoadPort;
+import be.kdg.prog6.landside.ports.out.AppointmentLoadPort;
 import be.kdg.prog6.landside.ports.out.TruckArrivedForDeliveryAppointmentPort;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +14,18 @@ import java.util.Optional;
 @Service
 public class DefaultGateArrivalUseCase implements GateArrivalUseCase {
 
-    private final DeliveryAppointmentLoadPort deliveryAppointmentLoadPort;
+    private final AppointmentLoadPort appointmentLoadPort;
     private final TruckArrivedForDeliveryAppointmentPort truckArrivedForDeliveryAppointmentPort;
 
-    public DefaultGateArrivalUseCase(DeliveryAppointmentLoadPort deliveryAppointmentLoadPort, TruckArrivedForDeliveryAppointmentPort truckArrivedForDeliveryAppointmentPort) {
-        this.deliveryAppointmentLoadPort = deliveryAppointmentLoadPort;
+    public DefaultGateArrivalUseCase(AppointmentLoadPort appointmentLoadPort, TruckArrivedForDeliveryAppointmentPort truckArrivedForDeliveryAppointmentPort) {
+        this.appointmentLoadPort = appointmentLoadPort;
         this.truckArrivedForDeliveryAppointmentPort = truckArrivedForDeliveryAppointmentPort;
     }
 
     @Override
     public void checkTruck(ScanLicensePlateCommand checkTruckCommand) {
 
-        Optional<Appointment> appointmentOptional = deliveryAppointmentLoadPort.loadAppointmentByLicensePlateAndArrivalTime(
+        Optional<Appointment> appointmentOptional = appointmentLoadPort.loadAppointmentByLicensePlateAndArrivalTime(
                 checkTruckCommand.getLicensePlate(),
                 checkTruckCommand.getArrivalTime()
         );

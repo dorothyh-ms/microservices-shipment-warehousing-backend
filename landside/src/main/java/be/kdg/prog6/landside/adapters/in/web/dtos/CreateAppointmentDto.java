@@ -13,7 +13,7 @@ public class CreateAppointmentDto {
     private String truckLicensePlate;
     private double amountTons;
 
-    private UUID sellerUUID;
+    private String sellerName;
     private Material material;
 
 
@@ -50,12 +50,12 @@ public class CreateAppointmentDto {
         this.material = material;
     }
 
-    public UUID getSellerUUID() {
-        return sellerUUID;
+    public String getSellerName() {
+        return sellerName;
     }
 
-    public void setSellerUUID(UUID sellerUUID) {
-        this.sellerUUID = sellerUUID;
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class CreateAppointmentDto {
                 "timeSlot=" + timeSlot +
                 ", truckLicensePlate='" + truckLicensePlate + '\'' +
                 ", amountTons=" + amountTons +
-                ", sellerUUID=" + sellerUUID +
+                ", sellerName='" + sellerName + '\'' +
                 ", material=" + material +
                 '}';
     }

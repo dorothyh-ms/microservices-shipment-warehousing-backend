@@ -20,7 +20,10 @@ public class WarehouseProjectionDto {
 
     private Material material;
 
-    public WarehouseProjectionDto(UUID id, double amountTons, double xCoord, double yCoord, double widthMeters, double lengthMeters, double maxCapacityTons, Material material) {
+    private UUID sellerId;
+    private String sellerName;
+
+    public WarehouseProjectionDto(UUID id, double amountTons, double xCoord, double yCoord, double widthMeters, double lengthMeters, double maxCapacityTons, Material material, UUID sellerId, String sellerName) {
         this.id = id;
         this.amountTons = amountTons;
         this.xCoord = xCoord;
@@ -29,6 +32,11 @@ public class WarehouseProjectionDto {
         this.lengthMeters = lengthMeters;
         this.maxCapacityTons = maxCapacityTons;
         this.material = material;
+        this.sellerId = sellerId;
+        this.sellerName = sellerName;
+    }
+
+    public WarehouseProjectionDto() {
     }
 
     public UUID getId() {
@@ -61,5 +69,21 @@ public class WarehouseProjectionDto {
 
     public Material getMaterial() {
         return material;
+    }
+
+    public UUID getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(UUID sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 }

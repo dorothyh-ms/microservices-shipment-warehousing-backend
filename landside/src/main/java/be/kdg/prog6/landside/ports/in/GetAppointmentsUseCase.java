@@ -4,8 +4,10 @@ import be.kdg.prog6.landside.domain.Appointment;
 
 import java.util.List;
 
-public interface GetAppointmentsInProgressUseCase {
+public interface GetAppointmentsUseCase {
 
-    List<Appointment> getAppoinmentsInProgress();
+    List<Appointment> getAppointments();
+
+
 
 }

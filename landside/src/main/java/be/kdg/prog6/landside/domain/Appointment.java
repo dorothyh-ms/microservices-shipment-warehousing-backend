@@ -31,6 +31,7 @@ public class Appointment {
     }
 
     public Appointment(Material material, String truckLicensePlate, LocalDateTime timeSlotStart, Warehouse warehouse, double amountTons) {
+        this.id = UUID.randomUUID();
         this.material = material;
         this.truckLicensePlate = truckLicensePlate;
         this.timeSlotStart = timeSlotStart;

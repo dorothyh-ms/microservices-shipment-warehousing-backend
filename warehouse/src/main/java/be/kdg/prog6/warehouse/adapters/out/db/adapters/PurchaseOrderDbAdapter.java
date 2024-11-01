@@ -8,6 +8,7 @@ import be.kdg.prog6.warehouse.adapters.out.db.entities.SellerJpaEntity;
 import be.kdg.prog6.warehouse.adapters.out.db.springDataRepositories.SpringDataPurchaseOrderLineRepository;
 import be.kdg.prog6.warehouse.adapters.out.db.springDataRepositories.SpringDataPurchaseOrderRepository;
 import be.kdg.prog6.warehouse.domain.PurchaseOrder;
+import be.kdg.prog6.warehouse.domain.PurchaseOrderStatus;
 import be.kdg.prog6.warehouse.ports.out.LoadPurchaseOrderPort;
 import be.kdg.prog6.warehouse.ports.out.PurchaseOrderCreatedPort;
 import be.kdg.prog6.warehouse.ports.out.PurchaseOrderFulfilledPort;
@@ -31,7 +32,7 @@ public class PurchaseOrderDbAdapter implements PurchaseOrderCreatedPort, LoadPur
         this.purchaseOrderLineRepository = purchaseOrderLineRepository;
     }
 
-    private void savePurchaseOrder(PurchaseOrder po){
+    private void savePurchaseOrder(PurchaseOrder po) {
         PurchaseOrderJpaEntity poJPA = new PurchaseOrderJpaEntity(
                 po.getId(),
                 po.getPurchaseOrderNumber(),
@@ -41,10 +42,15 @@ public class PurchaseOrderDbAdapter implements PurchaseOrderCreatedPort, LoadPur
                 po.getVesselNumber(),
                 po.getBuyerEnterpriseNumber()
         );
-
+        poJPA.setOrderLines(
+                po.getOrderLines().stream().map(pol -> new PurchaseOrderLineJpaEntity(
+                                pol.material(),
+                                pol.amountTons(),
+                                poJPA
+                        )
+                ).toList()
+        );
         purchaseOrderRepository.save(poJPA);
-        po.getOrderLines().forEach(pol -> purchaseOrderLineRepository.save(new PurchaseOrderLineJpaEntity(poJPA, pol.material(), pol.amountTons())));
-
     }
 
     @Override
@@ -53,10 +59,22 @@ public class PurchaseOrderDbAdapter implements PurchaseOrderCreatedPort, LoadPur
         savePurchaseOrder(po);
     }
 
+
     @Override
-    public List<PurchaseOrder> loadPurchaseOrders() {
+    public List<PurchaseOrder> loadPurchaseOrders(PurchaseOrderStatus status, String sellerName) {
         LOGGER.info("PurchaseOrderDbAdapter is running loadPurchaseOrders");
-        List<PurchaseOrderJpaEntity> poJpas = purchaseOrderRepository.findAll();
+        List<PurchaseOrderJpaEntity> poJpas;
+
+        if ((status != null) && (sellerName != null)) {
+            poJpas = purchaseOrderRepository.findByStatusAndSeller_Name(status, sellerName);
+        } else if (status != null) {
+            poJpas = purchaseOrderRepository.findByStatus(status);
+        } else if (sellerName != null) {
+            poJpas = purchaseOrderRepository.findBySeller_Name(sellerName);
+        } else {
+            poJpas = purchaseOrderRepository.findAll();
+        }
+
         return poJpas.stream().map(poJpa -> new PurchaseOrder(
                 poJpa.getId(),
                 poJpa.getPurchaseOrderNumber(),
@@ -75,7 +93,7 @@ public class PurchaseOrderDbAdapter implements PurchaseOrderCreatedPort, LoadPur
     public Optional<PurchaseOrder> loadPurchaseOrderByPurchaseOrderNumber(String purchaseOrderNumber) {
         LOGGER.info("PurchaseOrderDbAdapter is running loadPurchaseOrderByPurchaseOrderNumber with purchase order number {}", purchaseOrderNumber);
         Optional<PurchaseOrderJpaEntity> poJpaOptional = purchaseOrderRepository.findByPurchaseOrderNumber(purchaseOrderNumber);
-        if (poJpaOptional.isEmpty()){
+        if (poJpaOptional.isEmpty()) {
             LOGGER.info("loadPurchaseOrderByPurchaseOrderNumber could not load a purchase order matching the purchase order number {}", purchaseOrderNumber);
             return Optional.empty();
         }

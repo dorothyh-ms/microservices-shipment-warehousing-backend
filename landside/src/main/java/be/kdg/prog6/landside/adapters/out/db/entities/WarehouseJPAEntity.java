@@ -15,11 +15,12 @@ public class WarehouseJPAEntity {
     @Column(name="warehouse_id")
     private UUID id;
 
-    @Column(name="seller_id", nullable = true)
-    UUID sellerId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "seller_id")
+    private SellerJpa seller;
 
     @Enumerated(EnumType.STRING)
-    Material material;
+    private Material material;
 
     @Column(name="current_tons")
     double currentTons;
@@ -32,7 +33,14 @@ public class WarehouseJPAEntity {
 
 
 
-
+    public WarehouseJPAEntity(UUID id, SellerJpa seller, Material material, double currentTons, double xCoord, double yCoord) {
+        this.id = id;
+        this.seller = seller;
+        this.material = material;
+        this.currentTons = currentTons;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+    }
 
     public WarehouseJPAEntity() {
     }
@@ -43,14 +51,6 @@ public class WarehouseJPAEntity {
 
 
 
-    @Override
-    public String toString() {
-        return "WarehouseJPAEntity{" +
-                "id=" + id +
-                ", sellerId=" + sellerId +
-                ", currentTons=" + currentTons +
-                '}';
-    }
 
     public UUID getId() {
         return id;
@@ -60,12 +60,12 @@ public class WarehouseJPAEntity {
         this.id = id;
     }
 
-    public UUID getSellerId() {
-        return sellerId;
+    public SellerJpa getSeller() {
+        return seller;
     }
 
-    public void setSellerId(UUID sellerId) {
-        this.sellerId = sellerId;
+    public void setSeller(SellerJpa seller) {
+        this.seller = seller;
     }
 
     public Material getMaterial() {

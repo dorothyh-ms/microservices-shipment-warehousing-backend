@@ -1,12 +1,11 @@
 package be.kdg.prog6.warehouse.core;
 
 import be.kdg.prog6.common.domain.WarehouseActivityType;
-import be.kdg.prog6.warehouse.adapters.in.amqp.PurchaseOrderListener;
+import be.kdg.prog6.warehouse.adapters.in.amqp.NewPurchaseOrderListener;
 import be.kdg.prog6.warehouse.domain.Delivery;
 import be.kdg.prog6.warehouse.domain.Warehouse;
 import be.kdg.prog6.warehouse.domain.WarehouseActivity;
 import be.kdg.prog6.warehouse.domain.WarehouseActivityWindow;
-import be.kdg.prog6.warehouse.exceptions.IncorrectMaterialException;
 import be.kdg.prog6.warehouse.exceptions.SellerNotFoundException;
 import be.kdg.prog6.warehouse.ports.in.AddMaterialToWarehouseCommand;
 import be.kdg.prog6.warehouse.ports.in.AddMaterialToWarehouseUseCase;
@@ -27,7 +26,7 @@ import java.util.Optional;
 @Service
 public class DefaultAddMaterialToWarehouseUseCase implements AddMaterialToWarehouseUseCase {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PurchaseOrderListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NewPurchaseOrderListener.class);
     private final LoadWarehousePort loadWarehousePort;
     private final UpdateWarehousePort updateWarehousePort;
     private final WarehouseCreatePort warehouseCreatePort;

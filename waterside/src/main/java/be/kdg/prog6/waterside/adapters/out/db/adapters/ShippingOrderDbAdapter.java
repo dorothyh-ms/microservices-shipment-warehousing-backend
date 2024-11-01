@@ -59,4 +59,20 @@ public class ShippingOrderDbAdapter implements ShippingOrderCreatePort, Shipping
     public void updateShippingOrder(ShippingOrder so) {
         saveShippingOrder(so);
     }
+
+    @Override
+    public Optional<ShippingOrder> loadShippingOrderByPurchaseOrderNumber(String purchaseOrderNumber) {
+        Optional<ShippingOrderJpaEntity> soJpaOptional = shippingOrderJpaRepository.findByPurchaseOrderNo(purchaseOrderNumber);
+        if (soJpaOptional.isPresent()){
+            ShippingOrderJpaEntity soJpa = soJpaOptional.get();
+            return Optional.of(new ShippingOrder(
+                    soJpa.getId(),
+                    soJpa.getShippingOrderNo(),
+                    soJpa.getPurchaseOrderNo(),
+                    soJpa.getVesselNumber(),
+                    soJpa.getShippingOrderStatus()
+            ));
+        }
+        return Optional.empty();
+    }
 }

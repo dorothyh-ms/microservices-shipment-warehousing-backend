@@ -6,6 +6,7 @@ import be.kdg.prog6.warehouse.ports.out.LoadSellerPort;
 import main.java.be.kdg.prog6.warehouse.domain.Seller;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,5 +28,10 @@ public class SellerDbAdapter implements LoadSellerPort {
             );
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<Seller> loadSellers() {
+        return sellerRepository.findAll().stream().map(sellerJpaEntity -> new Seller(sellerJpaEntity.getId(), sellerJpaEntity.getName())).toList();
     }
 }

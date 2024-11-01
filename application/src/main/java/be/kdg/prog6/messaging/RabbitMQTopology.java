@@ -8,17 +8,18 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.context.annotation.Profile;
 
 
 @Configuration
+@Profile("!test")
 public class RabbitMQTopology {
 
 
     // Queues
     public static final String LANDSIDE_DELIVERIES_QUEUE = "landside_deliveries";
     public static final String WAREHOUSE_EVENTS_QUEUE = "warehouse_events_queue";
-    public static final String CREATED_PURCHASE_ORDERS_QUEUE = "created_purchase_orders_queue";
+    public static final String CREATE_PURCHASE_ORDERS_QUEUE = "create_purchase_orders_queue";
     public static final String FULFILLED_PURCHASE_ORDERS_QUEUE = "fulfilled_purchase_orders_queue";
     public static final String SHIPPING_ORDER_QUEUE = "shipping_order_queue";
 
@@ -61,7 +62,7 @@ public class RabbitMQTopology {
 
     @Bean
     Queue purchaseOrderCreatedQueue() {
-        return new Queue(CREATED_PURCHASE_ORDERS_QUEUE);
+        return new Queue(CREATE_PURCHASE_ORDERS_QUEUE);
     }
 
     @Bean

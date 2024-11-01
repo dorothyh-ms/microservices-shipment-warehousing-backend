@@ -15,11 +15,11 @@ Accept:application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "timeSlot":  "2024-10-30 14:30:34",
+  "timeSlot":  "2024-10-31 17:30:34",
   "truckLicensePlate":  "kd-kldfjkd-klk",
   "amountTons":  10.0,
   "material": "CEMENT",
-  "sellerUUID": "b0fc7bc6-2ecc-4ae4-8c3b-f5d5ad3ae8f4"
+  "sellerName": "test_seller1"
 }
 
 

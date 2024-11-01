@@ -7,5 +7,14 @@ import java.util.UUID;
 
 public record CreatePurchaseOrderCommand(String purchaseOrderNumber, UUID sellerId, String buyerEnterpriseNumber, String vesselNumber, List<PurchaseOrderLine> orderLines) {
 
-
+    @Override
+    public String toString() {
+        return "CreatePurchaseOrderCommand{" +
+                "purchaseOrderNumber='" + purchaseOrderNumber + '\'' +
+                ", sellerId=" + sellerId +
+                ", buyerEnterpriseNumber='" + buyerEnterpriseNumber + '\'' +
+                ", vesselNumber='" + vesselNumber + '\'' +
+                ", orderLines=" + orderLines +
+                '}';
+    }
 }

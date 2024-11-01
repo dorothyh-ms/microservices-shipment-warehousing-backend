@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface GetWarehousesUseCase {
 
-    public List<Warehouse> getWarehouses();
+    public List<Warehouse> getWarehouses(String sellerName);
 }

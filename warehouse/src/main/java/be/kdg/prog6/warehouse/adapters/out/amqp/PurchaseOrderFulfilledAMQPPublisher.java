@@ -1,5 +1,6 @@
 package be.kdg.prog6.warehouse.adapters.out.amqp;
 
+import be.kdg.prog6.common.events.PurchaseOrderFulfilledEvent;
 import be.kdg.prog6.common.events.WarehouseActivityCreatedEvent;
 import be.kdg.prog6.warehouse.domain.PurchaseOrder;
 import be.kdg.prog6.warehouse.domain.WarehouseActivity;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Component
 public class PurchaseOrderFulfilledAMQPPublisher implements PurchaseOrderFulfilledPort {
     private static final Logger LOGGER = LoggerFactory.getLogger(PurchaseOrderFulfilledAMQPPublisher.class);
-    private static final String EXCHANGE_NAME = "warehouse_events";
+    private static final String EXCHANGE_NAME = "purchase_orders";
     private final RabbitTemplate rabbitTemplate;
 
     public PurchaseOrderFulfilledAMQPPublisher(RabbitTemplate rabbitTemplate) {
@@ -24,12 +25,7 @@ public class PurchaseOrderFulfilledAMQPPublisher implements PurchaseOrderFulfill
     @Override
     public void purchaseOrderFulfilled(PurchaseOrder po) {
         LOGGER.info("PurchaseOrderFulfilledAMQPPublisher is running purchaseOrderFulfilled for purchase order {}", po);
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "", new WarehouseActivityCreatedEvent(warehouseId, activity.action(), activity.amountTons()));
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "purchase_orders.fulfilled", new PurchaseOrderFulfilledEvent(po.getPurchaseOrderNumber()));
     }
-
-    @Override
-    public void purchaseOrderFulfilled(UUID warehouseId, WarehouseActivity activity) {
-        LOGGER.info("Publishing warehouse activity {} for warehouse {}", activity, warehouseId);
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "", new WarehouseActivityCreatedEvent(warehouseId, activity.action(), activity.amountTons()));
-    }
+    
 }

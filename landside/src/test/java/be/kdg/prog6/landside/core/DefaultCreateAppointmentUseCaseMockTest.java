@@ -28,13 +28,13 @@ class DefaultCreateAppointmentUseCaseMockTest {
         warehouseLoadPort = mock(WarehouseLoadPort.class);
 
         // Given
-        when(warehouseLoadPort.loadWarehousesBySellerId(SELLER_ID)).thenReturn(WAREHOUSE_LIST);
+        when(warehouseLoadPort.loadWarehousesBySellerName(SELLER_NAME)).thenReturn(WAREHOUSE_LIST);
         sut = new DefaultCreateDeliveryAppointmentUseCase(appointmentBookedPort, warehouseLoadPort);
     }
     @Test
     void shouldCreateAppointment() {
         // Act
-        sut.createAppointment(new CreateDeliveryAppointmentCommand(SELLER_ID, MATERIAL_ID, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
+        sut.createAppointment(new CreateDeliveryAppointmentCommand(SELLER_NAME, MATERIAL, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
         final ArgumentCaptor<Appointment> appointmentCaptor = ArgumentCaptor.forClass(Appointment.class);
 
         // Assert
@@ -49,10 +49,11 @@ class DefaultCreateAppointmentUseCaseMockTest {
     @Test
     void createAppointmentShouldFailWithNonExistentSeller(){
 
+        String sellerName = "nonexistentseller";
         //Assert
         assertThrows(NoWarehouseAvailableException.class, () -> {
             // Act
-            sut.createAppointment(new CreateDeliveryAppointmentCommand(UUID.randomUUID(), MATERIAL_ID, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
+            sut.createAppointment(new CreateDeliveryAppointmentCommand(sellerName, MATERIAL, LICENSE_PLATE, AMOUNT_TONS, APPOINTMENT_TIME));
 
         });
     }
