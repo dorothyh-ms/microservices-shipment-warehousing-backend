@@ -14,6 +14,9 @@ public class UpdateAppointmentDto {
         this.timeSlot = timeSlot;
     }
 
+    public UpdateAppointmentDto() {
+    }
+
     public LocalDateTime getTimeSlot() {
         return timeSlot;
     }

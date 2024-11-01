@@ -29,14 +29,14 @@ public class AppointmentController {
     private final GateArrivalUseCase gateArrivalUseCase;
     private final GetAppointmentsUseCase getAppointmentsUseCase;
 
-    private final ChangeAppointmentTimeslotUseCase changeAppointmentTimeslotUseCase;
+
 
 
     public AppointmentController(CreateDeliveryAppointmentUseCase createDeliveryAppointmentUseCase, GateArrivalUseCase gateArrivalUseCase, GetAppointmentsUseCase getAppointmentsUseCase, ChangeAppointmentTimeslotUseCase changeAppointmentTimeslotUseCase) {
         this.createDeliveryAppointmentUseCase = createDeliveryAppointmentUseCase;
         this.gateArrivalUseCase = gateArrivalUseCase;
         this.getAppointmentsUseCase = getAppointmentsUseCase;
-        this.changeAppointmentTimeslotUseCase = changeAppointmentTimeslotUseCase;
+
     }
 
     @GetMapping
@@ -52,12 +52,7 @@ public class AppointmentController {
         )).toList(), HttpStatus.OK);
     }
 
-    @PatchMapping("/{appointmentId}/time")
-    public void updateAppointment(
-            @PathVariable UUID appointmentId, @RequestBody UpdateAppointmentDto updateAppointmentDto) {
-        LOGGER.info("AppointmentController is running updateAppointment");
-        changeAppointmentTimeslotUseCase.changeAppointmentTimeslot(appointmentId, updateAppointmentDto.getTimeSlot());
-    }
+
 
     @PostMapping
     public ResponseEntity<AppointmentDto> createAppointment(

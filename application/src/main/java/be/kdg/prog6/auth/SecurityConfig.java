@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/shipping-orders/**").permitAll()
                         .requestMatchers("/inspection-operations/**").permitAll()
                         .requestMatchers("/bunkering-operations/**").permitAll()
+                        .requestMatchers("/schedules/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(mgmt -> mgmt.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

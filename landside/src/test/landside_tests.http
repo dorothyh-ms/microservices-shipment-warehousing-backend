@@ -62,3 +62,13 @@ Authorization: Bearer {{access_token}}
 GET http://localhost:8090/api/warehouses/57f7f2a0-6928-4fe8-9bb8-afc36915929f/contents
 Accept: application/json
 Authorization: Bearer {{access_token}}
+
+###
+PATCH http://localhost:8090/api/schedules/66f2fdb0-71d8-800b-afae-98e6824af993
+
+Content-Type: application/json
+Accept: application/json
+
+{
+  "timeSlot":  "2024-01-01 12:00:00"
+}

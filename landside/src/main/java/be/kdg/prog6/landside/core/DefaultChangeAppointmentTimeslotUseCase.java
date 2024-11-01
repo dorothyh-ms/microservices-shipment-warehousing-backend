@@ -28,6 +28,7 @@ public class DefaultChangeAppointmentTimeslotUseCase implements ChangeAppointmen
             Appointment app= appOptional.get();
             app.setTimeSlotStart(newTimeSlot);
             appointmentUpdatePort.updateAppointment(app);
+            return app;
         }
         return null;
     }
