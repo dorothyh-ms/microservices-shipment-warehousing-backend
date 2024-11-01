@@ -1,7 +1,7 @@
 POST http://localhost:8180/realms/mineral/protocol/openid-connect/token
 Content-Type: application/x-www-form-urlencoded
 
-client_id=frontend&client_secret=exBMuPxIaEnnmQwoJUiEUMlAjdPccOHf&username=jane_doe&password=password&grant_type=password&scope=openid
+client_id=frontend&client_secret=exBMuPxIaEnnmQwoJUiEUMlAjdPccOHf&username=john_smith&password=password&grant_type=password&scope=openid
 
 > {%
     client.global.set("access_token", response.body.access_token)
@@ -15,7 +15,7 @@ Accept:application/json
 Authorization: Bearer {{access_token}}
 
 {
-  "timeSlot":  "2024-11-01 11:30:34",
+  "timeSlot":  "2024-11-01 17:30:34",
   "truckLicensePlate":  "kd-kldfjkd-klk",
   "amountTons":  10.0,
   "material": "CEMENT",
@@ -48,3 +48,8 @@ Accept: application/json
 {
   "truckFinalWeightTons":  5.0
 }
+
+###
+GET http://localhost:8090/api/unavailable-appointment-dates
+Accept: application/json
+Authorization: Bearer {{access_token}}

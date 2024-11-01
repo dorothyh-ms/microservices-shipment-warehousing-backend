@@ -3,6 +3,7 @@ package be.kdg.prog6.landside.adapters.in.web;
 
 import be.kdg.prog6.landside.adapters.in.web.dtos.AppointmentDto;
 import be.kdg.prog6.landside.adapters.in.web.dtos.CreateAppointmentDto;
+import be.kdg.prog6.landside.adapters.in.web.dtos.UpdateAppointmentDto;
 import be.kdg.prog6.landside.domain.Appointment;
 import be.kdg.prog6.landside.ports.in.*;
 import be.kdg.prog6.landside.ports.in.commands.CreateDeliveryAppointmentCommand;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/appointments")
@@ -27,15 +29,18 @@ public class AppointmentController {
     private final GateArrivalUseCase gateArrivalUseCase;
     private final GetAppointmentsUseCase getAppointmentsUseCase;
 
+    private final ChangeAppointmentTimeslotUseCase changeAppointmentTimeslotUseCase;
 
-    public AppointmentController(CreateDeliveryAppointmentUseCase createDeliveryAppointmentUseCase, GateArrivalUseCase gateArrivalUseCase, GetAppointmentsUseCase getAppointmentsUseCase) {
+
+    public AppointmentController(CreateDeliveryAppointmentUseCase createDeliveryAppointmentUseCase, GateArrivalUseCase gateArrivalUseCase, GetAppointmentsUseCase getAppointmentsUseCase, ChangeAppointmentTimeslotUseCase changeAppointmentTimeslotUseCase) {
         this.createDeliveryAppointmentUseCase = createDeliveryAppointmentUseCase;
         this.gateArrivalUseCase = gateArrivalUseCase;
         this.getAppointmentsUseCase = getAppointmentsUseCase;
+        this.changeAppointmentTimeslotUseCase = changeAppointmentTimeslotUseCase;
     }
 
     @GetMapping
-    public ResponseEntity<List<AppointmentDto>> loadAppointments(){
+    public ResponseEntity<List<AppointmentDto>> loadAppointments() {
         List<Appointment> apps = getAppointmentsUseCase.getAppointments();
         return new ResponseEntity<>(apps.stream().map(app -> new AppointmentDto(
                 app.getId(),
@@ -47,17 +52,25 @@ public class AppointmentController {
         )).toList(), HttpStatus.OK);
     }
 
+    @PatchMapping("/{appointmentId}")
+    public void updateAppointment(
+            @PathVariable UUID appointmentId, @RequestBody UpdateAppointmentDto updateAppointmentDto) {
+        LOGGER.info("AppointmentController is running updateAppointment");
+        changeAppointmentTimeslotUseCase.changeAppointmentTimeslot(appointmentId, updateAppointmentDto.getTimeSlot());
+
+    }
+
     @PostMapping
     public ResponseEntity<AppointmentDto> createAppointment(
-            @RequestBody CreateAppointmentDto createAppointmentDto){
+            @RequestBody CreateAppointmentDto createAppointmentDto) {
         LOGGER.info("AppointmentController is running createAppointment");
 
         Appointment appointment = createDeliveryAppointmentUseCase.createAppointment(new CreateDeliveryAppointmentCommand(
-                createAppointmentDto.getSellerName(),
-                createAppointmentDto.getMaterial(),
-                createAppointmentDto.getTruckLicensePlate(),
-                createAppointmentDto.getAmountTons(),
-                createAppointmentDto.getTimeSlot()
+                        createAppointmentDto.getSellerName(),
+                        createAppointmentDto.getMaterial(),
+                        createAppointmentDto.getTruckLicensePlate(),
+                        createAppointmentDto.getAmountTons(),
+                        createAppointmentDto.getTimeSlot()
                 )
         );
         return new ResponseEntity<>(new AppointmentDto(
@@ -71,11 +84,10 @@ public class AppointmentController {
     }
 
 
-
     @PatchMapping("/{licensePlate}")
     public void arriveAtAppointment(
             @PathVariable String licensePlate
-    ){
+    ) {
         LOGGER.info("AppointmentController is running arriveAtAppointment");
         gateArrivalUseCase.checkTruck(new ScanLicensePlateCommand(licensePlate));
     }

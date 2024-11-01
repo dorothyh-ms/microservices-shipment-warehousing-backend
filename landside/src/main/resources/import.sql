@@ -35,6 +35,7 @@ INSERT INTO landside.warehouses(warehouse_id, seller_id,  material, current_tons
 
 INSERT INTO landside.appointments (id, warehouse_id, appointment_date, appointment_hour, material, truck_license_plate, status, amount_tons) VALUES (UUID_TO_BIN('66f2fdb0-71d8-800b-afae-98e6824af9f5'), UUID_TO_BIN('38629eef-43f1-45c7-a4bb-522ce0febdeb'), '2023-10-28', 19, "CEMENT",  'ppp-pppp-ppp', 'CONSOLIDATED', 5);
 INSERT INTO landside.appointments (id, warehouse_id, appointment_date, appointment_hour, material, truck_license_plate, status, amount_tons) VALUES (UUID_TO_BIN('66f2fdb0-71d8-800b-afae-98e6824af995'), UUID_TO_BIN('38629eef-43f1-45c7-a4bb-522ce0febdeb'), '2024-11-04', 19, "CEMENT",  'lll-pppp-ppp', 'CREATED', 5);
+INSERT INTO landside.appointments (id, warehouse_id, appointment_date, appointment_hour, material, truck_license_plate, status, amount_tons) VALUES (UUID_TO_BIN('66f2fdb0-71d8-800b-afae-98e6824af993'), UUID_TO_BIN('38629eef-43f1-45c7-a4bb-522ce0febdeb'), '2023-12-12', 19, "IRON_ORE",  '000-0000-00', 'CREATED', 5);
 
 
 INSERT INTO waterside.shipping_orders(id, purchase_order_number, shipping_order_number, vessel_number) VALUES (UUID_TO_BIN('e942297d-3b0e-494f-86c1-af9d3b266ff4'), 'PO_000000', 'SO_00000', 'VS_00000');
