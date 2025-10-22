@@ -35,4 +35,4 @@ Below is a high-level list of modules/services included:
 - **waterside** – Service handling waterside shipments (e.g., sea freight, port operations).
 - **warehouse** – Warehouse management service: inventory, receipting, picking, put-away, shipping.
 
-Additional modules may cover auditing, user/role management, and cross-service orchestration.
+
